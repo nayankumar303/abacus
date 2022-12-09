@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Media databaseStamp="1613427199" displayResume="true" hash="13aa2d0f5456a36193373ef75605a9d62d8f275c887b1a1c5951d8f50d902f7a" insReleaseId="6-423" instMode="standalone_upgrade" localOSFileTree="false" maxInstPathLen="78" maxPathLength="170" name="CODE\win_b64\SIMULIA_Abaqus_Student.media\media" rootFeature="CODE\win_b64\SIMULIA_Abaqus_Student.media" type="CODE" volumes="1">
+	<InstallationType downwardCompatibility="false" extraFunctionalities="RegistryHandling_Uninstall_SoftwareMgt" id="SIMULIA_Abaqus_Student" name="" osType="any" policy="denyOthers" requiredBitMode="64" softwareManagement="CreateShortcut" uniqueInstall="onePerVersion" welcomePanel="false" />
+	<ProductLine directory="SIMULIA_Established" id="SIMULIA_Established_Prd" />
+	<ProductInfos VersionShortName="2021" companyName="Dassault Systemes" copyrightString="&#xa9; 2020 Dassault Syst&#xe8;mes. All rights reserved." description=" " gaLevel="B423" marketingLongVersion="2021" marketingVersion="2021" osds="win_b64" pkgId="0x00000000602ad071" pkgIdString="20210215T195009Z" productLine="SIMULIA_Established_Prd" rootLevel="423" shortReleaseName="2021" shortcutName="SIMULIA Abaqus Student Edition 2021" spLevel="423.5" versionLongName="SIMULIA Abaqus Student Edition 2021" />
+	<Steps>
+		<Step>DSYWelcomePanel</Step>
+		<Any />
+		<Step>DSYRegIdent</Step>
+		<Any />
+		<Step>SelectProduct</Step>
+		<Step>SelectExtraProduct</Step>
+		<Any />
+		<Step>_Resume</Step>
+	</Steps>
+</Media>

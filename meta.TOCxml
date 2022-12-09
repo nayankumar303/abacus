@@ -1,0 +1,2086 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Features databaseStamp="1613427199">
+	<Feature description=" " featureId="1" fw="SIMULIA_Abaqus_Student.media" name="CODE\win_b64\SIMULIA_Abaqus_Student.media" version="423.5">
+		<Variables>
+			<Path check="existOrCreatable" msgCatalog="SIMULIA_Abaqus_Student" name="parentDir" type="dir" value="^s[^p(DSYHOME)/SIMULIA]" />
+			<Path check="existOrCreatable" hidden="true" msgCatalog="SIMULIA_Abaqus_Student" name="docInstallPath" type="dir" value="^s[^p(parentDir)/Documentation/^m(VersionShortName)SE]" />
+			<Path name="TARGET_PATH" type="dir" value="" />
+			<SetPath condition="DONE:checkParent" fixed="true" name="TARGET_PATH" value="^e(parentDir)/CAE/^m(VersionShortName)SE" />
+			<SetCheckBoxItem fixed="true" group="CustomShortcuts" name="AdminToolsShortcut" value="true" />
+			<Text max="20" min="1" name="DSYRegIdent" pattern="[0-9A-Za-z\-_]*" value="" />
+			<Path fixed="true" hidden="true" name="DSYListInstallsExe" type="file" value="&quot;^s[^p(DSYCDPath)\win_b64\code\bin\DSYListInstalls.exe]&quot;" />
+			<Path fixed="true" hidden="true" name="dsyInstallsXmlOutputFile" type="file" value="^s[^p(tmpInstall)/dsInstalls.xml]" />
+			<Text hidden="true" name="installDocumentation" value="true" />
+			<SetText condition="ENV:BYPASS_SE_DOC_INSTALL == 'true'" fixed="true" name="installDocumentation" value="false" />
+			<SetPath condition="DONE:checkParent" fixed="true" name="docInstallPath" value="^s[^e(parentDir)/Documentation/^m(VersionShortName)SE]" />
+			<SelectProduct>
+				<Component name="CODE\win_b64\QSU.prd" value="true" />
+			</SelectProduct>
+			<Fix condition="FIXED:TARGET_PATH" name="SelectProduct" />
+		</Variables>
+		<Actions>
+			<CheckFileAction actError="ignoreError" check="existOrCreatable" condition="FIXED:TARGET_PATH" id="DSYAdmInt_CM_check_file_action" path="^e(TARGET_PATH)" type="dir" whenAdditional="checker" whenFirstInstall="checker" whenReconfig="checker" whenUpgrade="checker" />
+			<InstallTypeCheckAction actError="exitInstaller" actIncorrectBitModeInfo="ignoreError exitInstaller" id="DSYInstallTypeCheckAction" msgCatalog="DSYInsControler" whenAdditional="checker" whenFirstInstall="checker" whenReconfig="checker" whenUpgrade="checker" />
+			<LockAction actError="ignoreError" condition="FIXED:TARGET_PATH" id="LockTargetPathAction" lockId="LockTargetPath" value="^e(TARGET_PATH)" whenAdditional="checker" whenFirstInstall="checker" whenReconfig="checker" whenUpgrade="checker" />
+			<CreateShortcutAction arguments="--mgt &quot;^e(TARGET_PATH)&quot;" description="Launch Software Management tool" exe="^e(TARGET_PATH)^s(\InstallData\installer\)setup.exe" icon="^e(TARGET_PATH)^s(\InstallData\installer\)setup.exe" id="DSYSoftwareMgtShortcut" name="Software Management" where="DStools" />
+			<CreateShortcutAction arguments="--mgt &quot;[TARGETPATH]&quot;" createXML="true" description="Launch Software Management tool" exe="[TARGETPATH]\InstallData\installer\setup.exe" icon="[TARGETPATH]\InstallData\installer\setup.exe" id="DSYSoftwareMgtShortcut_createXML" name="Software Management" where="DStools" />
+			<CopyDirAction actSourceNotFound="notAnError" condition="FIXED:TARGET_PATH" copyMode="checkSize" dest="^e(TARGET_PATH)^s[\]InstallData^s[\]installer^s[\]inst^s[\]common" id="DSYAdmInt_CopyDirCATInstCommon" source="^env(CATInst)^s[\]common" whenAdditional="early" whenFirstInstall="early" whenUpgrade="early" />
+			<CopyDirAction actSourceNotFound="notAnError" condition="FIXED:TARGET_PATH" copyMode="checkSize" dest="^e(TARGET_PATH)^s[\]InstallData^s[\]installer^s[\]inst^s[\]^env(DSY_OS)" id="DSYAdmInt_CopyDirCATInst" source="^env(CATInst)^s[\]^env(DSY_OS)" whenAdditional="early" whenFirstInstall="early" whenUpgrade="early" />
+			<CopyDirAction actSourceNotFound="notAnError" condition="FIXED:TARGET_PATH AND ENV:CATInstaller != ''" copyMode="checkSize" dest="^e(TARGET_PATH)^s[\]InstallData^s[\]installer^s[\]inst^s[\]common" id="DSYAdmInt_CopyDirCATInstallerCommon" source="^env(CATInstaller)^s[\]common" whenAdditional="early" whenFirstInstall="early" whenUpgrade="early" />
+			<CopyDirAction actSourceNotFound="notAnError" condition="FIXED:TARGET_PATH AND ENV:CATInstaller != ''" copyMode="checkSize" dest="^e(TARGET_PATH)^s[\]InstallData^s[\]installer^s[\]inst^s[\]^env(DSY_OS)" id="DSYAdmInt_CopyDirCATInstaller" source="^env(CATInstaller)^s[\]^env(DSY_OS)" whenAdditional="early" whenFirstInstall="early" whenUpgrade="early" />
+			<CopyDirAction actSourceNotFound="notAnError" condition="FIXED:TARGET_PATH" copyMode="checkSize" dest="^e(TARGET_PATH)^s[\]InstallData^s[\]installer^s[\]setup.exe" id="DSYAdmInt_CopyDirSetup" source="^env(CATInst)^s[\..\]setup.exe" type="file" whenAdditional="early" whenFirstInstall="early" whenUpgrade="early" />
+			<CopyDirAction actSourceNotFound="notAnError" condition="FIXED:TARGET_PATH" copyMode="checkSize" dest="^e(TARGET_PATH)^s[\]InstallData^s[\]installer^s[\]StartTUI.exe" id="DSYAdmInt_CopyDirTUI" source="^env(CATInst)^s[\..\]StartTUI.exe" type="file" whenAdditional="early" whenFirstInstall="early" whenUpgrade="early" />
+			<CopyDirAction actSourceNotFound="notAnError" condition="FIXED:TARGET_PATH" copyMode="checkSize" dest="^e(TARGET_PATH)^s[\]InstallData^s[\]installer^s[\]StartGUI.sh" id="DSYAdmInt_CopyDirSetupSh" source="^env(CATInst)^s[\..\]StartGUI.sh" type="file" whenAdditional="early" whenFirstInstall="early" whenUpgrade="early" />
+			<CopyDirAction actSourceNotFound="notAnError" condition="FIXED:TARGET_PATH" copyMode="checkSize" dest="^e(TARGET_PATH)^s[\]InstallData^s[\]installer^s[\]StartTUI.sh" id="DSYAdmInt_CopyDirTUISh" source="^env(CATInst)^s[\..\]StartTUI.sh" type="file" whenAdditional="early" whenFirstInstall="early" whenUpgrade="early" />
+			<CopyDirAction actSourceNotFound="notAnError" condition="FIXED:TARGET_PATH" copyMode="checkSize" dest="^e(TARGET_PATH)^s[\]Uninstall.bat" id="DSYAdmInt_CopyDirUninstall" source="^env(CATInstallPath)^s[\]code^s[\]command^s[\]Uninstall.bat" type="file" whenAdditional="early" whenFirstInstall="early" whenUpgrade="early" />
+			<CopyDirAction actSourceNotFound="notAnError" condition="FIXED:TARGET_PATH" copyMode="checkSize" dest="^e(TARGET_PATH)^s[\]Uninstall.sh" id="DSYAdmInt_CopyDirUninstallSh" source="^env(CATInstallPath)^s[\]code^s[\]command^s[\]Uninstall.sh" type="file" whenAdditional="early" whenFirstInstall="early" whenUpgrade="early" />
+			<CopyDirAction actSourceNotFound="notAnError" condition="FIXED:TARGET_PATH" copyMode="checkSize" dest="^e(TARGET_PATH)^s[\]Uninstall.app" id="DSYAdmInt_CopyDirUninstallApp" source="^env(CATInstallPath)^s[\]Uninstall.app" type="file" whenAdditional="early" whenFirstInstall="early" whenUpgrade="early" />
+			<RegInternalAction id="DSYRegInternalGet" type="get" whenAdditional="never" whenFirstInstall="checker" whenReconfig="checker" whenUpgrade="never" />
+			<RegInternalAction actWarning="ignoreError" condition="FIXED:DSYRegIdent" id="DSYRegInternalCheckIdent" type="checkIdent" whenAdditional="never" whenFirstInstall="checker" whenUpgrade="never" />
+			<RegInternalAction condition="FIXED:DSYRegIdent" id="DSYRegInternalCreate" type="create" whenAdditional="atTheEnd1" whenFirstInstall="atTheEnd1" whenUpgrade="atTheEnd1" />
+			<RegInternalAction condition="FIXED:DSYRegIdent" id="DSYRegInternalCreateAddRemove" type="createAddRemove" whenAdditional="never" whenFirstInstall="early" whenUpgrade="never" />
+			<RegInternalAction condition="FIXED:DSYRegIdent" id="DSYRegInternalDelAddRemove" type="delAddRemove" whenAdditional="never" whenDelete="atTheEnd" whenFirstInstall="never" whenUpgrade="never" />
+			<RegInternalAction condition="FIXED:DSYRegIdent" id="DSYRegInternalAddAddRemove" type="addAddRemove" whenAdditional="early" whenDelete="never" whenFirstInstall="early" whenUpgrade="never" />
+			<RegInternalAction condition="FIXED:DSYRegIdent" id="DSYRegInternalUpgradeAddRemove" type="upgradeAddRemove" whenAdditional="never" whenDelete="never" whenFirstInstall="skip" whenUpgrade="early" />
+			<IniFileWriteAction actError="retryAction ignoreError" id="write_installDocumentation" iniFile="^e(iniFilePath)" key="installDocumentation" section="" shFile="^e(iniFilePath)" shMode="ini" value="true" whenAdditional="never" whenDelete="checker" whenFirstInstall="checker" whenUpgrade="checker" />
+			<IniFileWriteAction actError="retryAction ignoreError" id="write_updateUserIntentionFile" iniFile="^e(iniFilePath)" key="updateUserIntentionFile" section="" shFile="^e(iniFilePath)" shMode="ini" value="success" whenAdditional="never" whenDelete="checker" whenFirstInstall="checker" whenUpgrade="checker" />
+			<IniFileWriteAction actError="retryAction ignoreError" id="write_previousDocInstallDirectory" iniFile="^e(iniFilePath)" key="previousDocInstallDirectory" section="" shFile="^e(iniFilePath)" shMode="ini" value="notDetermined" whenAdditional="never" whenDelete="checker" whenFirstInstall="checker" whenUpgrade="checker" />
+			<IniFileWriteAction actError="retryAction ignoreError" id="write_documentationConfigured" iniFile="^e(iniFilePath)" key="documentationConfigured" section="" shFile="^e(iniFilePath)" shMode="ini" value="notDetermined" whenAdditional="never" whenDelete="checker" whenFirstInstall="checker" whenUpgrade="checker" />
+			<LaunchAppAction actError="ignoreError exitInstaller" arguments=" -level ^s[^m(gaLevel)] -type Documentation_SIMULIA_Student -xml -o &quot;^e(dsyInstallsXmlOutputFile)&quot;" condition="ENV:BYPASS_SE_DOC_INSTALL != 'true'" exe="^s[^e(DSYListInstallsExe)]" forceOSBitMode="64" id="run_DSYListInstallsExe" msgCatalog="SIMULIA_Abaqus_Student" msgKey="findStudentDocInstall" wait="true" whenAdditional="checker" whenDelete="never" whenFirstInstall="checker" whenUpgrade="checker" />
+			<LaunchAppAction actError="ignoreError exitInstaller" arguments="&quot;^s[^p(DSYCDPath)\common\installationFiles\code\parseXml.pl]&quot; &quot;^e(dsyInstallsXmlOutputFile)&quot; &quot;^e(iniFilePath)&quot;" condition="DONE:run_DSYListInstallsExe" exe="^e(perlExe)" forceOSBitMode="64" id="parseXmlOutput" msgCatalog="SIMULIA_Abaqus_Student" wait="true" whenAdditional="checker" whenDelete="never" whenFirstInstall="checker" whenUpgrade="checker">
+				<ReturnCode eq="1" msgKey="docExists_installDirFound" type="fail">
+					<Param value="SPE_ERR" />
+					<Button action="ok" />
+					<Button action="notAnError" />
+				</ReturnCode>
+				<ReturnCode eq="2" msgKey="docExists_installDirNotFound" type="fail">
+					<Button action="ok" />
+					<Button action="notAnError" />
+				</ReturnCode>
+			</LaunchAppAction>
+			<ReadVariableFromFileAction condition="DONE:parseXmlOutput" file="^e(iniFilePath)" id="ReadVariable_installDocumentation" key="installDocumentation" name="installDocumentation" section="" setType="fixed" whenAdditional="checker" whenDelete="never" whenFirstInstall="checker" whenUpgrade="checker" />
+			<LaunchAppAction arguments=" &quot;^s[^p(DSYCDPath)\common\installationFiles\code\checkParent.pl]&quot; &quot;^s[^e(parentDir)]&quot; &quot;^s[^m(VersionShortName)]&quot; ^e(installDocumentation)" condition="FIXED:parentDir AND FIXED:perlExe AND FIXED:installDocumentation" exe="&quot;^e(perlExe)&quot;" forceOSBitMode="64" id="checkParent" msgCatalog="SIMULIA_Abaqus_Student" msgKey="checkParent" wait="true" whenAdditional="checker" whenDelete="never" whenFirstInstall="checker" whenUpgrade="checker">
+				<ReturnCode eq="0" msgKey="goodParent" type="success" />
+				<ReturnCode eq="1" msgKey="childNotEmpty" type="fail">
+					<Param value="SPE_ERR" />
+					<Button action="ok" />
+				</ReturnCode>
+				<ReturnCode eq="2" msgKey="childNotWritable" type="fail">
+					<Param value="SPE_ERR" />
+					<Button action="ok" />
+				</ReturnCode>
+			</LaunchAppAction>
+			<LaunchAppAction actCreateProcess="notAnError" arguments="&quot;^e(TARGET_PATH)&quot;" condition="FIXED:TARGET_PATH" exe="^env(CATInstallPath)\code\bin\DSYAdmProcessesMgt.exe" forceOSBitMode="64" hideProcessWindow="true" id="DSYProcessMgt" msgCatalog="DSYInsControler" wait="true" whenAdditional="never" whenDelete="checker" whenFirstInstall="checker" whenReconfig="checker" whenUpgrade="checker">
+				<setenv key="DSYNotProcessCheck0" value="3DEXPERIENCECollaborationForMicrosoft.exe" />
+				<setenv key="DSYNotProcessCheck1" value="CATPLMIndexServer.exe" />
+				<setenv key="DSYNotProcessCheck2" value="CATSTART.exe" />
+				<setenv key="DSYNotProcessCheck3" value="DSYSysIRManager.exe" />
+				<setenv key="DSYNotProcessCheck4" value="DSYSysIRSendReportCnslEngine.exe" />
+				<setenv key="DSYNotProcessCheck5" value="DSYSysIRSendReportItrfEngine.exe" />
+				<setenv key="DSYNotProcessCheck6" value="PICDaemonService.exe" />
+				<setenv key="DSYNotProcessCheck7" value="PICMain.exe" />
+				<setenv key="DSYNotProcessCheck8" value="SDAMMain.exe" />
+				<setenv key="DSYNotProcessCheck9" value="SDAMStarter.exe" />
+				<ReturnCode eq="1" msgKey="DSYRunningProcesses" type="warning">
+					<Param value="SPE_ERR" />
+					<Button action="ok" />
+					<Button action="retry" />
+					<Button action="quit" />
+				</ReturnCode>
+			</LaunchAppAction>
+		</Actions>
+		<IncludeFeature name="CODE\win_b64\InsV6Installation" />
+		<IncludeFeature name="CODE\win_b64\SMAInstall" />
+		<IncludeFeature condition="SelectProduct.CODE\win_b64\QSU.prd" name="CODE\win_b64\QSU.prd" />
+	</Feature>
+	<Feature featureId="2" fw="InsV6Installation" name="CODE\win_b64\InsV6Installation" version="423.5">
+		<Variables>
+			<Text hidden="true" name="fileCopyCmd" value="" />
+			<Text hidden="true" name="fileCopyCmdOption" value="" />
+			<SetText condition="ENV:DSY_OS == 'win_b64' OR ENV:DSY_OS == 'intel_a'" fixed="true" name="fileCopyCmd" value="cmd" />
+			<SetText condition="ENV:DSY_OS == 'win_b64' OR ENV:DSY_OS == 'intel_a'" fixed="true" name="fileCopyCmdOption" value="/C copy /Y" />
+			<SetText condition="ENV:DSY_OS != 'win_b64' AND ENV:DSY_OS != 'intel_a'" fixed="true" name="fileCopyCmd" value="cp" />
+			<SetText condition="ENV:DSY_OS != 'win_b64' AND ENV:DSY_OS != 'intel_a'" fixed="true" name="fileCopyCmdOption" value="-f" />
+			<Text hidden="true" name="BatShExt" value="" />
+			<SetText condition="ENV:DSY_OS == 'win_b64' OR ENV:DSY_OS == 'intel_a'" fixed="true" name="BatShExt" value="bat" />
+			<SetText condition="ENV:DSY_OS != 'win_b64' AND ENV:DSY_OS != 'intel_a'" fixed="true" name="BatShExt" value="sh" />
+		</Variables>
+	</Feature>
+	<Feature featureId="3" fw="SMAInstall" name="CODE\win_b64\SMAInstall" version="423.5">
+		<Variables>
+			<SetBoolean condition="! ( ENV:DSY_OS == 'intel_a' OR ENV:DSY_OS == 'win_b64' )" fixed="true" name="isWindows" value="false" />
+			<Path fixed="true" hidden="true" name="customEnvFile" type="file" value="^s[^e(TARGET_PATH)\win_b64\SMA\site\custom_v6.env]" />
+			<Path fixed="true" hidden="true" name="customEnvFileParent" type="dir" value="^s[^e(TARGET_PATH)\win_b64\SMA\site]" />
+			<Path fixed="true" hidden="true" name="EstPrdConfigIniFile" type="file" value="^s[^e(TARGET_PATH)\win_b64\SMA\site\EstablishedProductsConfig.ini]" />
+			<Path fixed="true" hidden="true" name="EstPrdConfigIniFileParent" type="dir" value="^s[^e(TARGET_PATH)\win_b64\SMA\site]" />
+			<Path fixed="true" hidden="true" name="iniFilePath" type="file" value="^s[^p(tmpInstall)/install.ini]" volatile="true" />
+			<Path fixed="true" hidden="true" name="toscaInstallConfigIniDir" type="dir" value="^s[^e(TARGET_PATH)\win_b64\SMA\site]" />
+			<Path fixed="true" hidden="true" name="toscaInstallConfigIni" type="file" value="^s[^e(toscaInstallConfigIniDir)\toscaInstallConfig.ini]" />
+			<Path fixed="true" hidden="true" name="customJavaCodeJar" type="file" value="^s[^p(DSYCDPath)\common\installationFiles\code\CaeCustomCode.jar]" volatile="true" />
+			<Path fixed="true" hidden="true" name="perlExe" type="file" value="^s[^p(DSYCDPath)\common\installationFiles\perl\perl.exe]" volatile="true" />
+			<Path hidden="true" name="javaExe" type="file" value="^e(TARGET_PATH)\win_b64\code\jre\bin\java.exe" />
+			<SetPath condition="FIXED:TARGET_PATH AND ( ENV:DSY_OS == 'intel_a' OR ENV:DSY_OS == 'win_b64' )" fixed="true" name="javaExe" value="^e(TARGET_PATH)\win_b64\code\jre\bin\java.exe" />
+			<SetPath condition="FIXED:TARGET_PATH AND ! ( ENV:DSY_OS == 'intel_a' OR ENV:DSY_OS == 'win_b64' )" fixed="true" name="javaExe" value="^e(TARGET_PATH)\win_b64\code\jre\bin\java" />
+			<Path fixed="true" hidden="true" name="customDslsConfigParent" type="dir" value="^s[^e(TARGET_PATH)\win_b64\SMA\site]" />
+			<Path fixed="true" hidden="true" name="customDslsConfigFile" type="file" value="^s[^e(customDslsConfigParent)/DSLicSrv.txt]" />
+			<SetPath fixed="true" name="SMATocLicPanel_customDSLSfilePath" value="^s[^e(customDslsConfigFile)]" />
+		</Variables>
+		<Actions>
+			<CreateDirAction actError="ignoreError exitInstaller" id="createCustomParent" targetDir="customEnvFileParent" whenAdditional="never" whenDelete="never" whenFirstInstall="normal" whenUpgrade="never" />
+			<TxtFileWriteAction file="^e(customEnvFile)" id="writeToCustomFile" whenAdditional="never" whenDelete="never" whenFirstInstall="normal" whenUpgrade="never">
+				<AddLine value="" />
+				<AddLine value="# Installation of Established Products ^m(VersionShortName)" />
+			</TxtFileWriteAction>
+			<CreateDirAction actError="ignoreError exitInstaller" id="createEstProdConfigIniFileParent" targetDir="EstPrdConfigIniFileParent" whenAdditional="never" whenDelete="never" whenFirstInstall="normal" whenUpgrade="never" />
+			<TxtFileWriteAction file="^e(EstPrdConfigIniFile)" id="createEstProdConfigIniFile" whenAdditional="never" whenDelete="never" whenFirstInstall="normal" whenUpgrade="never">
+				<AddLine value="" />
+				<AddLine value="[EstablishedProducts]" />
+				<AddLine value="" />
+			</TxtFileWriteAction>
+			<IniFileWriteAction actError="retryAction ignoreError" id="writeVersionShortNameToIniFile" iniFile="^e(iniFilePath)" key="VersionShortName" section="" shFile="^e(iniFilePath)" shMode="ini" value="^m(VersionShortName)" whenAdditional="checker" whenDelete="checker" whenFirstInstall="checker" whenUpgrade="checker" />
+			<LaunchAppAction actError="ignoreError exitInstaller" arguments="&quot;^s[^p(DSYCDPath)\common\installationFiles\code\setupDslsConfig.pl]&quot; &quot;^s[^e(defaultDslsConfigPath)/DSLicSrv.txt]&quot; &quot;^e(iniFilePath)&quot; &quot;^e(DSLS_VERIFIED_SERVER_NAME)&quot; &quot;^e(SMATocLicPanel_customDSLSfilePath)&quot; &quot;^e(SMATocLicPanel_customDSLSfilePath)&quot;" condition="serverType_radioButton.dsls AND FIXED:needToCreate_customDslsLicenseConfigFile AND RAW:needToCreate_customDslsLicenseConfigFile == 'true'" exe="^e(perlExe)" forceOSBitMode="64" id="createCustomDslsConfigWithEntry" msgCatalog="SMATocLicPanel" msgKey="runSetupDslsScript" wait="true" whenAdditional="never" whenDelete="never" whenFirstInstall="normal" whenUpgrade="never">
+				<ReturnCode msgKey="failRunSetupDslsScript" neq="0" type="warning">
+					<Button action="ok" />
+					<Button action="notAnError" />
+				</ReturnCode>
+			</LaunchAppAction>
+			<DeleteFileAction actError="notAnError" actPathDoesNotExist="notAnError" id="delete_customDslsConfigFile" path="^e(customDslsConfigFile)" type="file" whenAdditional="never" whenDelete="normal" whenFirstInstall="never" whenUpgrade="never" />
+			<DeleteFileAction actError="notAnError" actPathDoesNotExist="notAnError" id="delete_customDslsConfigParent" path="^e(customDslsConfigParent)" type="dir" whenAdditional="never" whenDelete="normal" whenFirstInstall="never" whenUpgrade="never" />
+			<DeleteFileAction actError="notAnError" actPathDoesNotExist="notAnError" id="delete_customEnvFile" path="^e(customEnvFile)" type="file" whenAdditional="never" whenDelete="normal" whenFirstInstall="never" whenUpgrade="never" />
+			<DeleteFileAction actError="notAnError" actPathDoesNotExist="notAnError" id="delete_EstPrdConfigIniFile" path="^e(EstPrdConfigIniFile)" type="dir" whenAdditional="never" whenDelete="normal" whenFirstInstall="never" whenUpgrade="never" />
+			<FileAction diskSpace="4990270" volume="1" />
+		</Actions>
+		<IncludeFeature condition="FIXED:TARGET_PATH" earlyInstall="firstInstallOnly" name="CODE\win_b64\VENJavaJRE" />
+	</Feature>
+	<Feature featureId="4" fw="VENJavaJRE" name="CODE\win_b64\VENJavaJRE" version="423.5">
+		<Variables>
+			<Boolean fixed="true" name="installEmbeddedJRE" value="true" />
+		</Variables>
+		<Actions>
+			<FileAction diskSpace="117782325" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature description="QSU - SIMULIA Student Edition" featureId="5" fw="QSU.prd" name="CODE\win_b64\QSU.prd" version="423.5">
+		<Actions>
+			<FileAction diskSpace="3538" volume="1" />
+		</Actions>
+		<IncludeFeature name="CODE\win_b64\SMAInstall" />
+		<IncludeFeature name="CODE\win_b64\SIMCAES_TP.prd" />
+		<IncludeFeature name="CODE\win_b64\SIMAQSS_TP.prd" />
+		<IncludeFeature name="CODE\win_b64\SIMAQXS_TP.prd" />
+		<IncludeFeature name="CODE\win_b64\SIMADPS_TP.prd" />
+		<IncludeFeature name="CODE\win_b64\InsDataFW_SEshared" />
+		<IncludeFeature name="CODE\win_b64\VENMKL" />
+		<IncludeFeature name="CODE\win_b64\SMADmp" />
+		<IncludeFeature name="CODE\win_b64\SMABase" />
+		<IncludeFeature name="CODE\win_b64\SMABranch" />
+		<IncludeFeature name="CODE\win_b64\SMAUzlUtiZlib" />
+		<IncludeFeature name="CODE\win_b64\Administration" />
+		<IncludeFeature name="CODE\win_b64\SystemTS" />
+		<IncludeFeature name="CODE\win_b64\SpecialAPI" />
+		<IncludeFeature name="CODE\win_b64\System" />
+		<IncludeFeature name="CODE\win_b64\InsVCpreq" />
+		<IncludeFeature name="CODE\win_b64\LCCommon" />
+		<IncludeFeature name="CODE\win_b64\XMLParserItf" />
+		<IncludeFeature name="CODE\win_b64\Dialog" />
+		<IncludeFeature name="CODE\win_b64\PictoGraphicBase" />
+		<IncludeFeature name="CODE\win_b64\VENMOTIF" />
+		<IncludeFeature name="CODE\win_b64\IntrospectionInfrastructure" />
+		<IncludeFeature name="CODE\win_b64\CATStyleProcessor" />
+		<IncludeFeature name="CODE\win_b64\UIScriptBase" />
+		<IncludeFeature name="CODE\win_b64\UIVCoreTools" />
+		<IncludeFeature name="CODE\win_b64\Mathematics" />
+		<IncludeFeature name="CODE\win_b64\OpDataInterfaces" />
+		<IncludeFeature name="CODE\win_b64\ECMAScriptEngine" />
+		<IncludeFeature name="CODE\win_b64\VIAMPFoundation" />
+		<IncludeFeature name="CODE\win_b64\VENV8" />
+		<IncludeFeature name="CODE\win_b64\ExperienceKernel" />
+		<IncludeFeature name="CODE\win_b64\CSICommandBinder" />
+		<IncludeFeature name="CODE\win_b64\SystemAdvanced" />
+		<IncludeFeature name="CODE\win_b64\SystemExtensions" />
+		<IncludeFeature name="CODE\win_b64\Communications" />
+		<IncludeFeature name="CODE\win_b64\InfInterfaces" />
+		<IncludeFeature name="CODE\win_b64\InfOSIDLItf" />
+		<IncludeFeature name="CODE\win_b64\InfInterfacesTLB" />
+		<IncludeFeature name="CODE\win_b64\CATJavaBridge" />
+		<IncludeFeature name="CODE\win_b64\AutomationInterfaces" />
+		<IncludeFeature name="CODE\win_b64\InfOSIDLImpl" />
+		<IncludeFeature name="CODE\win_b64\VBA" />
+		<IncludeFeature name="CODE\win_b64\CATPLMServDisco" />
+		<IncludeFeature name="CODE\win_b64\CATPLMServDiscoImpl" />
+		<IncludeFeature name="CODE\win_b64\CATCustomActionMSI" />
+		<IncludeFeature name="CODE\win_b64\XMLParserMSChecker" />
+		<IncludeFeature name="CODE\win_b64\DSYAdmEnvMgtUI" />
+		<IncludeFeature name="CODE\win_b64\DSYAdmEnvMgt" />
+		<IncludeFeature name="CODE\win_b64\DSYInsInfra" />
+		<IncludeFeature name="CODE\win_b64\VENFORTRAN" />
+		<IncludeFeature name="CODE\win_b64\SMAAbuAbaqusUtilities" />
+		<IncludeFeature name="CODE\win_b64\SMAMsgCommServices" />
+		<IncludeFeature name="CODE\win_b64\SMAAspSchema" />
+		<IncludeFeature name="CODE\win_b64\SMACfgFeaConfiguration" />
+		<IncludeFeature name="CODE\win_b64\SMACSim" />
+		<IncludeFeature name="CODE\win_b64\SMACSrvSimServices" />
+		<IncludeFeature name="CODE\win_b64\SMADyn" />
+		<IncludeFeature name="CODE\win_b64\SMAISim" />
+		<IncludeFeature name="CODE\win_b64\SMAISrvSimServices" />
+		<IncludeFeature name="CODE\win_b64\SMAMtkMapperToolKit" />
+		<IncludeFeature name="CODE\win_b64\SMAMtx" />
+		<IncludeFeature name="CODE\win_b64\SMAPtkPathToolKit" />
+		<IncludeFeature name="CODE\win_b64\SMASim" />
+		<IncludeFeature name="CODE\win_b64\SMASimHLApi" />
+		<IncludeFeature name="CODE\win_b64\SMASimSchema" />
+		<IncludeFeature name="CODE\win_b64\SMABla" />
+		<IncludeFeature name="CODE\win_b64\SMAObjSimObjects" />
+		<IncludeFeature name="CODE\win_b64\SMASrvSimServices" />
+		<IncludeFeature name="CODE\win_b64\SMAFsm" />
+		<IncludeFeature name="CODE\win_b64\SMASglSimGenericLayer" />
+		<IncludeFeature name="CODE\win_b64\SMAFeoFeaSimServices" />
+		<IncludeFeature name="CODE\win_b64\SMAFeaBackbone" />
+		<IncludeFeature name="CODE\win_b64\SMAMsgFeaMessaging" />
+		<IncludeFeature name="CODE\win_b64\SMASimGenServices" />
+		<IncludeFeature name="CODE\win_b64\SMASfsShapeFuncSrv" />
+		<IncludeFeature name="CODE\win_b64\DSYSysBBDemon" />
+		<IncludeFeature name="CODE\win_b64\VENMPI" />
+		<IncludeFeature name="CODE\win_b64\SMAExternal" />
+		<IncludeFeature name="CODE\win_b64\InsVC10preq" />
+		<IncludeFeature name="CODE\win_b64\InsVC11preq" />
+		<IncludeFeature name="CODE\win_b64\VENJavaJRE" />
+	</Feature>
+	<Feature description="Abaqus CAE Student Edition" featureId="6" fw="SIMCAES_TP.prd" name="CODE\win_b64\SIMCAES_TP.prd" version="423.5">
+		<Actions>
+			<FileAction diskSpace="5542" volume="1" />
+		</Actions>
+		<IncludeFeature name="CODE\win_b64\InsVC11preq" />
+		<IncludeFeature name="CODE\win_b64\InsDataFW_SE" />
+		<IncludeFeature name="CODE\win_b64\SMACaeGMainSE" />
+		<IncludeFeature name="CODE\win_b64\SMACaeKMainSE" />
+		<IncludeFeature name="CODE\win_b64\SMAVwrGMainSE" />
+		<IncludeFeature name="CODE\win_b64\SMAVwrKMainSE" />
+		<IncludeFeature name="CODE\win_b64\SystemTS" />
+		<IncludeFeature name="CODE\win_b64\SpecialAPI" />
+		<IncludeFeature name="CODE\win_b64\System" />
+		<IncludeFeature name="CODE\win_b64\InsVCpreq" />
+		<IncludeFeature name="CODE\win_b64\LCCommon" />
+		<IncludeFeature name="CODE\win_b64\XMLParserItf" />
+		<IncludeFeature name="CODE\win_b64\SMAAqenv" />
+		<IncludeFeature name="CODE\win_b64\SMAPyaModules" />
+		<IncludeFeature name="CODE\win_b64\SMAPylModules" />
+		<IncludeFeature name="CODE\win_b64\SMAPyrModules" />
+		<IncludeFeature name="CODE\win_b64\SMASyf" />
+		<IncludeFeature name="CODE\win_b64\SMAPl5" />
+		<IncludeFeature name="CODE\win_b64\SMABase" />
+		<IncludeFeature name="CODE\win_b64\SMABranch" />
+		<IncludeFeature name="CODE\win_b64\SMAUzlUtiZlib" />
+		<IncludeFeature name="CODE\win_b64\Administration" />
+		<IncludeFeature name="CODE\win_b64\Dialog" />
+		<IncludeFeature name="CODE\win_b64\PictoGraphicBase" />
+		<IncludeFeature name="CODE\win_b64\VENMOTIF" />
+		<IncludeFeature name="CODE\win_b64\IntrospectionInfrastructure" />
+		<IncludeFeature name="CODE\win_b64\CATStyleProcessor" />
+		<IncludeFeature name="CODE\win_b64\UIScriptBase" />
+		<IncludeFeature name="CODE\win_b64\UIVCoreTools" />
+		<IncludeFeature name="CODE\win_b64\Mathematics" />
+		<IncludeFeature name="CODE\win_b64\OpDataInterfaces" />
+		<IncludeFeature name="CODE\win_b64\ECMAScriptEngine" />
+		<IncludeFeature name="CODE\win_b64\VIAMPFoundation" />
+		<IncludeFeature name="CODE\win_b64\VENV8" />
+		<IncludeFeature name="CODE\win_b64\ExperienceKernel" />
+		<IncludeFeature name="CODE\win_b64\CSICommandBinder" />
+		<IncludeFeature name="CODE\win_b64\SystemAdvanced" />
+		<IncludeFeature name="CODE\win_b64\SystemExtensions" />
+		<IncludeFeature name="CODE\win_b64\Communications" />
+		<IncludeFeature name="CODE\win_b64\InfInterfaces" />
+		<IncludeFeature name="CODE\win_b64\InfOSIDLItf" />
+		<IncludeFeature name="CODE\win_b64\InfInterfacesTLB" />
+		<IncludeFeature name="CODE\win_b64\CATJavaBridge" />
+		<IncludeFeature name="CODE\win_b64\AutomationInterfaces" />
+		<IncludeFeature name="CODE\win_b64\InfOSIDLImpl" />
+		<IncludeFeature name="CODE\win_b64\VBA" />
+		<IncludeFeature name="CODE\win_b64\CATPLMServDisco" />
+		<IncludeFeature name="CODE\win_b64\CATPLMServDiscoImpl" />
+		<IncludeFeature name="CODE\win_b64\CATCustomActionMSI" />
+		<IncludeFeature name="CODE\win_b64\XMLParserMSChecker" />
+		<IncludeFeature name="CODE\win_b64\DSYAdmEnvMgtUI" />
+		<IncludeFeature name="CODE\win_b64\DSYAdmEnvMgt" />
+		<IncludeFeature name="CODE\win_b64\DSYInsInfra" />
+		<IncludeFeature name="CODE\win_b64\VENFORTRAN" />
+		<IncludeFeature name="CODE\win_b64\SMAAbuAbaqusUtilities" />
+		<IncludeFeature name="CODE\win_b64\SMAMsgCommServices" />
+		<IncludeFeature name="CODE\win_b64\SMAAspSchema" />
+		<IncludeFeature name="CODE\win_b64\SMACfgFeaConfiguration" />
+		<IncludeFeature name="CODE\win_b64\SMACSim" />
+		<IncludeFeature name="CODE\win_b64\SMACSrvSimServices" />
+		<IncludeFeature name="CODE\win_b64\SMADyn" />
+		<IncludeFeature name="CODE\win_b64\SMAISim" />
+		<IncludeFeature name="CODE\win_b64\SMAISrvSimServices" />
+		<IncludeFeature name="CODE\win_b64\SMAMtkMapperToolKit" />
+		<IncludeFeature name="CODE\win_b64\SMAMtx" />
+		<IncludeFeature name="CODE\win_b64\SMAPtkPathToolKit" />
+		<IncludeFeature name="CODE\win_b64\SMASim" />
+		<IncludeFeature name="CODE\win_b64\SMASimHLApi" />
+		<IncludeFeature name="CODE\win_b64\SMASimSchema" />
+		<IncludeFeature name="CODE\win_b64\SMABla" />
+		<IncludeFeature name="CODE\win_b64\SMAObjSimObjects" />
+		<IncludeFeature name="CODE\win_b64\SMASrvSimServices" />
+		<IncludeFeature name="CODE\win_b64\SMAFsm" />
+		<IncludeFeature name="CODE\win_b64\SMASglSimGenericLayer" />
+		<IncludeFeature name="CODE\win_b64\SMAFeoFeaSimServices" />
+		<IncludeFeature name="CODE\win_b64\SMAFeaBackbone" />
+		<IncludeFeature name="CODE\win_b64\SMAMsgFeaMessaging" />
+		<IncludeFeature name="CODE\win_b64\SMASimGenServices" />
+		<IncludeFeature name="CODE\win_b64\SMASfsShapeFuncSrv" />
+		<IncludeFeature name="CODE\win_b64\DSYSysBBDemon" />
+		<IncludeFeature name="CODE\win_b64\SMAPyc27" />
+		<IncludeFeature name="CODE\win_b64\SMAAcisLib" />
+		<IncludeFeature name="CODE\win_b64\SMAAfc" />
+		<IncludeFeature name="CODE\win_b64\SMACaeHelp" />
+		<IncludeFeature name="CODE\win_b64\SMACcoCaeCom" />
+		<IncludeFeature name="CODE\win_b64\SMACgaGeometryApplication" />
+		<IncludeFeature name="CODE\win_b64\SMACgiGeometryInfrastructure" />
+		<IncludeFeature name="CODE\win_b64\SMACgmCaeGuiMod" />
+		<IncludeFeature name="CODE\win_b64\SMACinCaeInter" />
+		<IncludeFeature name="CODE\win_b64\SMACkeCaeKer" />
+		<IncludeFeature name="CODE\win_b64\SMACkmCaeKerMod" />
+		<IncludeFeature name="CODE\win_b64\SMACmaMeshingApplication" />
+		<IncludeFeature name="CODE\win_b64\SMACmiMeshingInfrastructure" />
+		<IncludeFeature name="CODE\win_b64\SMAFoxAPI" />
+		<IncludeFeature name="CODE\win_b64\SMAGimGeometryImport" />
+		<IncludeFeature name="CODE\win_b64\SMAInbInteractiveInfra" />
+		<IncludeFeature name="CODE\win_b64\SMAIngInteractiveInfraGUI" />
+		<IncludeFeature name="CODE\win_b64\SMAInkInteractiveInfraKernel" />
+		<IncludeFeature name="CODE\win_b64\SMALgrLibGraphics" />
+		<IncludeFeature name="CODE\win_b64\SMAPde" />
+		<IncludeFeature name="CODE\win_b64\SMAPyxMdbUpgrade" />
+		<IncludeFeature name="CODE\win_b64\SMARaster" />
+		<IncludeFeature name="CODE\win_b64\SMAStiStableTimeIncrement" />
+		<IncludeFeature name="CODE\win_b64\SMAVagAtvGui" />
+		<IncludeFeature name="CODE\win_b64\SMAVcoVwrCom" />
+		<IncludeFeature name="CODE\win_b64\SMAVgmVwrGuiMod" />
+		<IncludeFeature name="CODE\win_b64\SMAVmoVwrMod" />
+		<IncludeFeature name="CODE\win_b64\CATCDSPlug2DItf" />
+		<IncludeFeature name="CODE\win_b64\CATCDS" />
+		<IncludeFeature name="CODE\win_b64\CATCDSUtilities" />
+		<IncludeFeature name="CODE\win_b64\CATWBx" />
+		<IncludeFeature name="CODE\win_b64\SMAFlexnet" />
+		<IncludeFeature name="CODE\win_b64\InsVC14preq" />
+		<IncludeFeature name="CODE\win_b64\SMAInpFlattener" />
+		<IncludeFeature name="CODE\win_b64\SMAIof" />
+		<IncludeFeature name="CODE\win_b64\SMACdb" />
+		<IncludeFeature name="CODE\win_b64\SMAOdb" />
+		<IncludeFeature name="CODE\win_b64\SMAOdb2Sim" />
+		<IncludeFeature name="CODE\win_b64\SMAAspAnalysisSupport" />
+		<IncludeFeature name="CODE\win_b64\SMAI2sInp2Sim" />
+		<IncludeFeature name="CODE\win_b64\SMAPst" />
+		<IncludeFeature name="CODE\win_b64\SMASub" />
+		<IncludeFeature name="CODE\win_b64\SMATlpSimTools" />
+		<IncludeFeature name="CODE\win_b64\SMATlsSimTools" />
+		<IncludeFeature name="CODE\win_b64\SMAUsubs" />
+		<IncludeFeature name="CODE\win_b64\SMAEliLicensing" />
+		<IncludeFeature name="CODE\win_b64\ExperienceKernelAddins" />
+		<IncludeFeature name="CODE\win_b64\SMAEliBase" />
+		<IncludeFeature name="CODE\win_b64\SMAElkElementKernel" />
+		<IncludeFeature name="CODE\win_b64\SMAGpuLayer" />
+		<IncludeFeature name="CODE\win_b64\SMALcuLibCUDA" />
+		<IncludeFeature name="CODE\win_b64\SMALpeLibPETSC" />
+		<IncludeFeature name="CODE\win_b64\SMARom" />
+		<IncludeFeature name="CODE\win_b64\SMAShpShape" />
+		<IncludeFeature name="CODE\win_b64\SMAPltModelerCore" />
+		<IncludeFeature name="CODE\win_b64\SMAPybindings" />
+		<IncludeFeature name="CODE\win_b64\SMAPydModules" />
+		<IncludeFeature name="CODE\win_b64\SMAPyextStd" />
+		<IncludeFeature name="CODE\win_b64\SMAPyqModules" />
+		<IncludeFeature name="CODE\win_b64\SMAPython" />
+		<IncludeFeature name="CODE\win_b64\VENCEF" />
+		<IncludeFeature name="CODE\win_b64\VENQTUtil" />
+		<IncludeFeature name="CODE\win_b64\SMALncMainSE" />
+		<IncludeFeature name="CODE\win_b64\SMALauncher" />
+		<IncludeFeature name="CODE\win_b64\VENMKL" />
+		<IncludeFeature name="CODE\win_b64\SMADmp" />
+		<IncludeFeature name="CODE\win_b64\VENMPI" />
+		<IncludeFeature name="CODE\win_b64\SMAExternal" />
+		<IncludeFeature name="CODE\win_b64\SMASamples" />
+	</Feature>
+	<Feature featureId="7" fw="InsVC11preq" name="CODE\win_b64\InsVC11preq" version="423.5">
+		<Actions>
+			<LaunchAppAction arguments="-install -dir &quot;^e(TARGET_PATH)\win_b64\code\bin&quot; -log &quot;^p(tmpInstall)\InstallVC11.log&quot;" duration="60" exe="^env(CATInstallPath)\code\bin\DSYAdmVC11preq.exe" forceOSBitMode="64" id="InstallVC11preq" msgCatalog="DSYInsControler" useInstallerEnvironment="true" wait="true" whenAdditional="normal" whenDelete="never" whenFirstInstall="normal" whenUpgrade="normal">
+				<ReturnCode eq="3010" msgKey="installVC11NeedsReboot" type="warning">
+					<Button action="notAnError" />
+				</ReturnCode>
+				<ReturnCode msgKey="installVC11Failed" neq="0" type="fail">
+					<Param value="SPE_RC" />
+					<Param value="^p(tmpInstall)\InstallVC11.log" />
+					<Param value="SPE_ERR_PATH" />
+					<Button action="ok" />
+				</ReturnCode>
+			</LaunchAppAction>
+			<FileAction diskSpace="10182128" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="8" fw="InsDataFW_SE" name="CODE\win_b64\InsDataFW_SE" version="423.5">
+		<Variables>
+			<Text fixed="true" hidden="true" name="abaqusCommandName" value="abaqus.bat" />
+			<Text fixed="true" hidden="true" name="changeDirOptions" value="/D " />
+			<Path fixed="true" hidden="true" name="caeShortcutIcon" type="file" value="^s[^e(TARGET_PATH)\win_b64\resources\install\cae\abq.ico]" />
+			<Path fixed="true" hidden="true" name="verifyWrapper" type="file" value="^s[^p(tmpInstall)\verifyWrapper.bat]" />
+			<Path fixed="true" hidden="true" name="launcher" type="file" value="^s[^e(TARGET_PATH)\win_b64\code\bin\SMALauncherSE.exe]" />
+			<Path fixed="true" hidden="true" name="shortcutBatchFile" type="file" value="^s[^e(TARGET_PATH)\win_b64\resources\install\se\launcher.bat]" />
+			<Path fixed="true" hidden="true" name="installationCurrentBatchFile" type="file" value="^s[^e(TARGET_PATH)\win_b64\resources\install\se\currentBatchFile.txt]" />
+			<Path fixed="true" hidden="true" name="binDir" type="dir" value="^s[^e(TARGET_PATH)\win_b64\code\bin]" />
+			<Text fixed="true" hidden="true" name="abqPythonDll" value="python27.dll" />
+			<Path fixed="true" hidden="true" name="updateAbaqusCommandsSE_PerlScriptCDPath" type="file" value="^s[^p(DSYCDPath)\common\installationFiles\code\updateAbaqusCommandsSE.pl]" />
+			<Path check="existOrCreatable" fixed="true" hidden="true" msgCatalog="SIMULIA_Abaqus_Student" name="commandsDir" type="dir" value="^s[^e(parentDir)/Commands]" />
+			<Path check="existOrCreatable" msgCatalog="SIMULIA_Abaqus_Student" name="seWorkingDir" previousAMValue="fix" type="dir" value="^s[^p(DSYHOME)/temp]" />
+			<Boolean hidden="true" name="needToCreateWorkingDir" value="false" />
+			<Path fixed="true" hidden="true" name="docMediaPath" type="file" value="^s[^p(DSYCDPath)\..\..\..\DOC_SIMULIA_Abaqus_Student.AllOS\1\startTUI.exe]" />
+			<Text fixed="true" hidden="true" name="docIntentionName" value="docIntention.xml" />
+			<Path fixed="true" hidden="true" name="docIntentionFile" type="file" value="^s[^p(DSYCDPath)\common\installationFiles\code\^e(docIntentionName)]" />
+			<Text hidden="true" name="documentationConfigured" value="true" />
+			<SetText condition="FIXED:installDocumentation AND RAW:installDocumentation == 'false'" fixed="true" name="documentationConfigured" value="false" />
+			<Boolean hidden="true" name="needToCreateCommandsDir" value="false" />
+			<Text hidden="true" name="abqCommandForThisRelease" value="" volatile="true" />
+			<Path fixed="true" hidden="true" name="interopDir" type="dir" value="^s[^e(TARGET_PATH)\win_b64\code\bin\SMAExternal\Interop]" />
+			<Path fixed="true" hidden="true" name="updateDocInfo_PerlScriptCDPath" type="file" value="^s[^p(DSYCDPath)\common\installationFiles\code\updateDocInfo.pl]" />
+			<Boolean hidden="true" name="CODE\win_b64\InsDataFW_SE_DONE" value="false" />
+			<SetBoolean condition="DONE:productHasBeenInstalled" name="CODE\win_b64\InsDataFW_SE_DONE" value="true" />
+		</Variables>
+		<Actions>
+			<CheckFileAction check="notExistAndCreatable" condition="FIXED:seWorkingDir" id="checkWorkingDirExists" path="^e(seWorkingDir)" setType="fixed" type="dir" varBool="needToCreateWorkingDir" whenAdditional="never" whenDelete="never" whenFirstInstall="checker" whenUpgrade="never" />
+			<CreateDirAction condition="FIXED:needToCreateWorkingDir AND needToCreateWorkingDir" id="createWorkingDir" targetDir="seWorkingDir" whenAdditional="never" whenDelete="never" whenFirstInstall="checker" whenUpgrade="never" />
+			<LaunchAppAction actCreateProcess="ignoreError exitInstaller" arguments=" &quot;^s[^p(DSYCDPath)\common\installationFiles\code\chgValueInFile.pl]&quot; SEDOCINSTALLPATH &quot;^s[^e(docInstallPath)]&quot; &quot;^s[^e(docIntentionFile)]&quot; &quot;^s[^p(tmpInstall)\^e(docIntentionName)]&quot; &quot;^e(iniFilePath)&quot;" condition="FIXED:docInstallPath AND FIXED:installDocumentation AND RAW:installDocumentation == 'true'" exe="&quot;^e(perlExe)&quot;" forceOSBitMode="64" id="configUserDocIntentions" msgCatalog="SIMULIA_Abaqus_Student" msgKey="configUserDocIntentions" wait="true" whenAdditional="never" whenDelete="never" whenFirstInstall="checker" whenUpgrade="never">
+				<ReturnCode msgKey="configIntention_NOTRC0" neq="0" type="fail">
+					<Param value="SPE_FULL_PATH" />
+					<Button action="ok" />
+					<Button action="notAnError" />
+				</ReturnCode>
+			</LaunchAppAction>
+			<ReadVariableFromFileAction condition="DONE:configUserDocIntentions" file="^e(iniFilePath)" id="ReadVariable_documentationConfigured" key="documentationConfigured" name="documentationConfigured" section="" setType="fixed" whenAdditional="checker" whenDelete="never" whenFirstInstall="checker" whenUpgrade="never" />
+			<LaunchAppAction actCreateProcess="ignoreError exitInstaller" actError="ignoreError exitInstaller" arguments=" --silent &quot;^s[^p(tmpInstall)\^e(docIntentionName)]&quot;" condition="RAW:installDocumentation == 'true' AND DONE:ReadVariable_documentationConfigured AND RAW:documentationConfigured != 'failed'" diskSpace="2900MB" duration="16m" exe="&quot;^e(docMediaPath)&quot;" forceOSBitMode="64" id="silentDocInstall" msgCatalog="SIMULIA_Abaqus_Student" msgKey="silentDocInstall" wait="true" whenAdditional="never" whenDelete="never" whenFirstInstall="early" whenUpgrade="never">
+				<ReturnCode msgKey="badDocInstall" neq="0" type="fail">
+					<Param value="SPE_FULL_PATH" />
+					<Button action="quit" />
+					<Button action="ok" />
+				</ReturnCode>
+			</LaunchAppAction>
+			<CheckFileAction check="notExistAndCreatable" id="checkCommandsDirExists" path="^e(commandsDir)" setType="fixed" type="dir" varBool="needToCreateCommandsDir" whenAdditional="never" whenDelete="never" whenFirstInstall="normal" whenUpgrade="never" />
+			<CreateDirAction condition="FIXED:needToCreateCommandsDir AND needToCreateCommandsDir" id="createCommandsDir" targetDir="commandsDir" whenAdditional="never" whenDelete="never" whenFirstInstall="normal" whenUpgrade="never" />
+			<LaunchAppAction actError="ignoreError exitInstaller" arguments="&quot;^e(commandsDir)&quot;" condition="FIXED:commandsDir" exe="^s[^e(TARGET_PATH)\win_b64\code\bin\SMAAbuPathSet.exe]" forceOSBitMode="64" id="addCommandsDirToPathVar" msgCatalog="SIMULIA_Abaqus_Student" msgKey="addCommandsDirToPathVar" wait="true" whenAdditional="never" whenDelete="never" whenFirstInstall="atTheEnd1" whenUpgrade="never">
+				<ReturnCode msgKey="addCommandsDirToPathVar" neq="0" type="fail">
+					<Param value="&quot;^e(commandsDir)&quot;" />
+					<Button action="ok" />
+				</ReturnCode>
+			</LaunchAppAction>
+			<TxtFileWriteAction append="false" file="^e(shortcutBatchFile)" id="createShortcutBatchFile" whenAdditional="never" whenDelete="never" whenFirstInstall="normal" whenUpgrade="never">
+				<AddLine value="@echo off" />
+				<AddLine value="&quot;^e(launcher)&quot; %*" />
+			</TxtFileWriteAction>
+			<LaunchAppAction arguments="&quot;^e(updateAbaqusCommandsSE_PerlScriptCDPath)&quot; &quot;^e(installationCurrentBatchFile)&quot; ^m(VersionShortName) &quot;^e(commandsDir)&quot; &quot;^e(launcher)&quot; installing &quot;^e(iniFilePath)&quot;" condition="FIXED:needToCreateCommandsDir AND FIXED:parentDir" exe="^e(perlExe)" forceOSBitMode="64" id="updateAbaqusCommands" msgCatalog="SIMULIA_Abaqus_Student" msgKey="processAbaqusCommandLink" wait="true" whenAdditional="never" whenDelete="never" whenFirstInstall="normal" whenUpgrade="normal">
+				<ReturnCode msgKey="updateAbaqusCommands" neq="0" type="warning">
+					<Button action="ok" />
+				</ReturnCode>
+			</LaunchAppAction>
+			<ReadVariableFromFileAction condition="DONE:updateAbaqusCommands" file="^e(iniFilePath)" id="ReadVariable_abqCommandForThisRelease" key="abqCommandForThisRelease" name="abqCommandForThisRelease" section="" setType="fixed" whenAdditional="never" whenDelete="never" whenFirstInstall="normal" whenUpgrade="never" />
+			<LaunchAppAction actCreateProcess="retryAction ignoreError" arguments="/c copy &quot;^s[^e(binDir)\^e(abqPythonDll)]&quot; &quot;^s[^e(binDir)\SE\^e(abqPythonDll)]&quot;" condition="DONE:updateAbaqusCommands" duration="1m" exe="cmd.exe" forceOSBitMode="64" id="copyPythonDLL" msgCatalog="SIMULIA_Abaqus_Student" msgKey="copyPythonDLL" wait="true" whenAdditional="never" whenDelete="never" whenFirstInstall="normal" whenUpgrade="never">
+				<ReturnCode msgKey="copyPythonDLL" neq="0" type="warning">
+					<Param value="&quot;^s[^e(binDir)\^e(abqPythonDll)]&quot;" />
+					<Param value="&quot;^s[^e(binDir)\SE\^e(abqPythonDll)]&quot;" />
+					<Button action="ok" />
+				</ReturnCode>
+			</LaunchAppAction>
+			<RegSetKeyValueAction condition="DONE:updateAbaqusCommands" data="odb_auto_file" forceOSBitMode="64" id="setReg_odbExtension" key=".odb" removeAtUninst="false" root="HKCR" type="string" value="" whenAdditional="never" whenDelete="never" whenFirstInstall="normal" whenUpgrade="never" />
+			<RegSetKeyValueAction condition="DONE:setReg_odbExtension" data="^s[^e(commandsDir)/ABQ_OD~1.BAT &quot;%1&quot;]" forceOSBitMode="64" id="setReg_odbCommand" key="odb_auto_file\shell\open\command" removeAtUninst="false" root="HKCR" type="string" value="" whenAdditional="never" whenDelete="never" whenFirstInstall="normal" whenUpgrade="never" />
+			<RegSetKeyValueAction condition="DONE:setReg_odbCommand" data="cae_auto_file" forceOSBitMode="64" id="setReg_caeExtension" key=".cae" removeAtUninst="false" root="HKCR" type="string" value="" whenAdditional="never" whenDelete="never" whenFirstInstall="normal" whenUpgrade="never" />
+			<RegSetKeyValueAction condition="DONE:setReg_caeExtension" data="^s[^e(commandsDir)/ABQ_CA~1.BAT &quot;%1&quot;]" forceOSBitMode="64" id="setReg_caeCommand" key="cae_auto_file\shell\open\command" removeAtUninst="false" root="HKCR" type="string" value="" whenAdditional="never" whenDelete="never" whenFirstInstall="normal" whenUpgrade="never" />
+			<TxtFileWriteAction append="false" condition="DONE:setReg_caeCommand" file="^s[^e(commandsDir)/abq_odb_open.bat]" id="createOdbBatch" whenAdditional="never" whenDelete="never" whenFirstInstall="normal" whenUpgrade="never">
+				<AddLine value="@echo off" />
+				<AddLine value="cd /d &quot;%~dp1&quot;" />
+				<AddLine value="&quot;^s[^e(commandsDir)/abaqus.bat]&quot; viewer database=&quot;%~n1&quot;" />
+			</TxtFileWriteAction>
+			<TxtFileWriteAction append="false" condition="DONE:createOdbBatch" file="^s[^e(commandsDir)/abq_cae_open.bat]" id="createCaeBatch" whenAdditional="never" whenDelete="never" whenFirstInstall="normal" whenUpgrade="never">
+				<AddLine value="@echo off" />
+				<AddLine value="cd /d &quot;%~dp1&quot;" />
+				<AddLine value="&quot;^s[^e(commandsDir)/abaqus.bat]&quot; cae database=&quot;%~n1&quot;" />
+			</TxtFileWriteAction>
+			<LaunchAppAction actError="ignoreError exitInstaller" arguments="&quot;^e(launcher)&quot; python &quot;^s[^e(TARGET_PATH)\win_b64\resources\install\cae\unpackInterop.py]&quot; &quot;^s[^e(interopDir)]&quot; upgrade" condition="ENV:UNZIP_INTEROP_BYPASS != 'true'" duration="16m" exe="^s[^e(TARGET_PATH)\win_b64\resources\install\cae\doit.bat]" forceOSBitMode="64" id="unzipInteropPackageSE" msgCatalog="SIMULIA_Abaqus_Student" msgKey="unzipInteropPackage" wait="true" whenAdditional="never" whenDelete="never" whenFirstInstall="atTheEnd2" whenUpgrade="normal">
+				<ReturnCode msgKey="unzipInteropPackage" neq="0" type="warning">
+					<Button action="ok" />
+				</ReturnCode>
+			</LaunchAppAction>
+			<LaunchAppAction actError="ignoreError exitInstaller" arguments="&quot;^e(updateDocInfo_PerlScriptCDPath)&quot; &quot;CONSTANT_TEXT^e(docInstallPath)&quot; English &quot;^e(customEnvFile)&quot;" condition="DONE:silentDocInstall" exe="^e(perlExe)" forceOSBitMode="64" id="runPerl_updateDocInfo" msgCatalog="SIMULIA_Abaqus_Student" msgKey="updateDocInfo" wait="true" whenAdditional="never" whenDelete="never" whenFirstInstall="normal" whenUpgrade="never">
+				<ReturnCode msgKey="updateDocInfo" neq="0" type="warning">
+					<Button action="ok" />
+				</ReturnCode>
+			</LaunchAppAction>
+			<TxtFileWriteAction append="false" condition="DONE:ReadVariable_abqCommandForThisRelease AND ENV:BYPASS_VERIFICATION != 'true'" file="^e(verifyWrapper)" id="createVerifyWrapper" whenAdditional="never" whenDelete="never" whenFirstInstall="atTheEnd3" whenUpgrade="never">
+				<AddLine value="cd ^e(changeDirOptions) &quot;^p(DSYTMP)&quot;" />
+				<AddLine value="&quot;^e(launcher)&quot; verify -install -log" />
+				<AddLine value="copy ^s[&quot;^p(DSYTMP)\verify.log&quot;] ^s[&quot;^p(tmpInstall)\verify.log&quot;]" />
+			</TxtFileWriteAction>
+			<LaunchAppAction actCreateProcess="retryAction ignoreError" arguments="" condition="DONE:createVerifyWrapper" duration="5m" exe="^e(verifyWrapper)" forceOSBitMode="64" id="runVerification" msgCatalog="SIMULIA_Abaqus_Student" msgKey="runVerification" wait="true" whenAdditional="never" whenDelete="never" whenFirstInstall="normal" whenUpgrade="never">
+				<ReturnCode msgKey="runVerification" type="success">
+					<Param value="^s[^p(tmpInstall)\verify.log]" />
+					<Param value="^e(abqCommandForThisRelease)" />
+					<Param value="^s[^e(commandsDir)]" />
+					<Button action="ok" />
+				</ReturnCode>
+			</LaunchAppAction>
+			<LaunchAppAction arguments="-classpath &quot;^e(customJavaCodeJar)&quot; com.simulia.v6install.actions.CopyDirectory ^s[&quot;^p(DSYTMP)\verify&quot;] ^s[&quot;^p(tmpInstall)\verify&quot;] " condition="DONE:runVerification" exe="&quot;^e(javaExe)&quot;" forceOSBitMode="64" id="copyVerifyDir" msgCatalog="SIMULIA_Abaqus_Student" msgKey="copyVerifyDir" wait="true" whenAdditional="never" whenDelete="never" whenFirstInstall="normal" whenUpgrade="never" />
+			<IniFileWriteAction actError="retryAction ignoreError" condition="DONE:updateAbaqusCommands" id="productHasBeenInstalled" iniFile="^e(iniFilePath)" key="productHasBeenInstalled" section="" shFile="^e(iniFilePath)" shMode="ini" value="true" whenAdditional="never" whenDelete="never" whenFirstInstall="normal" whenUpgrade="never" />
+			<CreateShortcutAction arguments="cae || pause" description="launch Abaqus CAE" exe="^s[^e(shortcutBatchFile)]" icon="^s[^e(caeShortcutIcon)]" id="makeShortcut_CAE" name="Abaqus CAE" startInFolder="^e(seWorkingDir)" whenAdditional="never" whenFirstInstall="normal" whenUpgrade="never" where="DSstart" />
+			<CreateShortcutAction arguments="viewer || pause" description="launch Abaqus Viewer" exe="^s[^e(shortcutBatchFile)]" icon="^s[^e(caeShortcutIcon)]" id="makeShortcut_viewer" name="Abaqus Viewer" startInFolder="^e(seWorkingDir)" whenAdditional="never" whenFirstInstall="normal" whenUpgrade="never" where="DSstart" />
+			<CreateShortcutAction arguments="/k" exe="cmd.exe" icon="^s[^e(caeShortcutIcon)]" id="makeShortcut_cmd" name="Abaqus Command" startInFolder="^e(seWorkingDir)" whenAdditional="never" whenFirstInstall="normal" whenUpgrade="never" where="DSstart" />
+			<CreateShortcutAction arguments="doc " condition="RAW:installDocumentation == 'true' AND RAW:documentationConfigured != 'failed'" exe="^s[^e(shortcutBatchFile)]" icon="^s[^e(caeShortcutIcon)]" id="makeShortcut_Documentation" name="Abaqus Documentation" startInFolder="^e(seWorkingDir)" whenAdditional="never" whenFirstInstall="normal" whenUpgrade="never" where="DSstart" />
+			<CreateShortcutAction arguments="-verify -all -log &amp;&amp; notepad.exe verify.log || notepad.exe verify.log" description="Abaqus verification" exe="^s[^e(shortcutBatchFile)]" icon="^s[^e(caeShortcutIcon)]" id="makeShortcut_Verification" name="Abaqus Verification" startInFolder="^e(seWorkingDir)" whenAdditional="never" whenFirstInstall="normal" whenUpgrade="never" where="DSstart" />
+			<CreateShortcutAction exe="^s[^e(TARGET_PATH)\win_b64\resources\install\cae\my_support.htm]" icon="^s[^e(caeShortcutIcon)]" id="makeShortcut_Support" name="My Support" whenAdditional="never" whenFirstInstall="normal" whenUpgrade="never" where="DSstart" />
+			<DeleteFileAction actError="notAnError" actPathDoesNotExist="notAnError" condition="FIXED:TARGET_PATH AND FIXED:parentDir" id="deleteshortcutBatchFile" path="^s[^e(shortcutBatchFile)]" type="file" whenAdditional="never" whenDelete="checker" whenFirstInstall="never" whenUpgrade="never" />
+			<DeleteFileAction actError="notAnError" actPathDoesNotExist="notAnError" id="removeStudentPythonDLL" path="&quot;^s[^e(TARGET_PATH)\win_b64\code\bin\SE\^e(abqPythonDll)]&quot;" type="file" whenAdditional="never" whenDelete="checker" whenFirstInstall="never" whenUpgrade="never" />
+			<DeleteFileAction actError="notAnError" actPathDoesNotExist="notAnError" id="removeInteropPackage" path="^e(interopDir)" type="dir" whenAdditional="never" whenDelete="normal" whenFirstInstall="never" whenUpgrade="never" />
+			<DeleteFileAction actError="notAnError" actPathDoesNotExist="notAnError" condition="FIXED:TARGET_PATH AND FIXED:parentDir" id="deleteCustomEnvFile" path="^s[^e(TARGET_PATH)\win_b64\SMA\site\custom_v6.env]" type="file" whenAdditional="never" whenDelete="checker" whenFirstInstall="never" whenUpgrade="never" />
+			<LaunchAppAction arguments="&quot;^e(updateAbaqusCommandsSE_PerlScriptCDPath)&quot; &quot;^e(installationCurrentBatchFile)&quot; ^m(VersionShortName) &quot;^e(commandsDir)&quot; &quot;^e(launcher)&quot; uninstall" condition="FIXED:commandsDir AND FIXED:launcher AND FIXED:parentDir" exe="^e(perlExe)" forceOSBitMode="64" id="removeAbaqusCommands" msgCatalog="SIMULIA_Abaqus_Student" msgKey="removeAbaqusCommands" wait="true" whenAdditional="never" whenDelete="checker" whenFirstInstall="never" whenUpgrade="never">
+				<ReturnCode msgKey="removeAbaqusCommands" neq="0" type="warning">
+					<Button action="ok" />
+				</ReturnCode>
+			</LaunchAppAction>
+			<FileAction diskSpace="2371654" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="9" fw="SMACaeGMainSE" name="CODE\win_b64\SMACaeGMainSE" version="423.5">
+		<Actions>
+			<FileAction diskSpace="44648" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="10" fw="SMACaeKMainSE" name="CODE\win_b64\SMACaeKMainSE" version="423.5">
+		<Actions>
+			<FileAction diskSpace="4115048" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="11" fw="SMAVwrGMainSE" name="CODE\win_b64\SMAVwrGMainSE" version="423.5">
+		<Actions>
+			<FileAction diskSpace="37480" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="12" fw="SMAVwrKMainSE" name="CODE\win_b64\SMAVwrKMainSE" version="423.5">
+		<Actions>
+			<FileAction diskSpace="4110440" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="13" fw="SystemTS" name="CODE\win_b64\SystemTS" version="423.5">
+		<Actions>
+			<FileAction diskSpace="7756808" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="14" fw="SpecialAPI" name="CODE\win_b64\SpecialAPI" version="423.5" />
+	<Feature featureId="15" fw="System" name="CODE\win_b64\System" version="423.5">
+		<Actions>
+			<CreateDirAction id="CreatePathSftMgt" name="SftMgt" />
+			<LaunchAppAction arguments="&quot;^s[^e(TARGET_PATH)\SftMgt]&quot; ^m(gaLevel) ^m(VersionShortName) &quot;^m(versionLongName)&quot;" exe="^s[^v(CATInstallPath)\code\bin\DSYInsInstallTxt.exe]" forceOSBitMode="64" id="CreateInstallXml" msgCatalog="Inst_Administration" useInstallerEnvironment="true" wait="true" whenAdditional="never" whenDelete="never" whenFirstInstall="atTheEnd" whenUpgrade="atTheEnd">
+				<ReturnCode msgKey="DSYInstallTxtFailed" neq="0" type="fail">
+					<Param value="SPE_RC" />
+					<Param value="SPE_ERR" />
+					<Button action="ok" />
+				</ReturnCode>
+			</LaunchAppAction>
+			<DeleteFileAction actPathDoesNotExist="notAnError" id="del_SftMgt_Directory" name="SftMgt" type="dir" whenAdditional="never" whenDelete="normal" whenFirstInstall="never" whenUpgrade="never" />
+			<LaunchAppAction arguments="/F /IM DSYSysIRManager.exe" exe="taskkill" forceOSBitMode="64" id="WatchDog_TaskKill" wait="true" whenAdditional="never" whenDelete="early" whenFirstInstall="early" whenUpgrade="early" />
+			<LaunchAppAction arguments="/F /IM DSYSysIRSendReportCnslEngine.exe" exe="taskkill" forceOSBitMode="64" id="WatchDogConsoleEngine_TaskKill" wait="true" whenAdditional="never" whenDelete="early" whenFirstInstall="early" whenUpgrade="early" />
+			<LaunchAppAction arguments="/F /IM DSYSysIRSendReportItrfEngine.exe" exe="taskkill" forceOSBitMode="64" id="WatchDogInteractiveEngine_TaskKill" wait="true" whenAdditional="never" whenDelete="early" whenFirstInstall="early" whenUpgrade="early" />
+			<FileAction diskSpace="11524326" volume="1" />
+		</Actions>
+		<IncludeFeature name="CODE\win_b64\InsVCpreq" />
+	</Feature>
+	<Feature featureId="16" fw="InsVCpreq" name="CODE\win_b64\InsVCpreq" version="423.5">
+		<IncludeFeature name="CODE\win_b64\InsVC14preq" />
+	</Feature>
+	<Feature featureId="17" fw="InsVC14preq" name="CODE\win_b64\InsVC14preq" version="423.5">
+		<Actions>
+			<LaunchAppAction arguments="/install /quiet /norestart /log &quot;^p(tmpInstall)\RedistVC141x86.log&quot;" exe="^e(TARGET_PATH)\win_b64\VCRedist141\code\bin\vc_redist.x86.exe" forceOSBitMode="64" id="RedistVC141x86" msgCatalog="DSYInsControler" wait="true" whenAdditional="normal" whenDelete="never" whenFirstInstall="normal" whenUpgrade="normal">
+				<ReturnCode eq="3010" msgKey="RedistVC14x86NeedsReboot" type="success">
+					<Button action="ok" />
+				</ReturnCode>
+				<ReturnCode eq="1638" msgKey="RedistVC14x86NewerVersionInstalled" type="success" />
+				<ReturnCode msgKey="RedistVC14x86Failed" neq="0" type="fail">
+					<Param value="SPE_RC" />
+					<Param value="^p(tmpInstall)\RedistVC141x86.log" />
+					<Button action="abort" />
+				</ReturnCode>
+			</LaunchAppAction>
+			<LaunchAppAction arguments="/install /quiet /norestart /log &quot;^p(tmpInstall)\RedistVC141x64.log&quot;" exe="^e(TARGET_PATH)\win_b64\VCRedist141\code\bin\vc_redist.x64.exe" forceOSBitMode="64" id="RedistVC141x64" msgCatalog="DSYInsControler" wait="true" whenAdditional="normal" whenDelete="never" whenFirstInstall="normal" whenUpgrade="normal">
+				<ReturnCode eq="3010" msgKey="RedistVC14x64NeedsReboot" type="success">
+					<Button action="ok" />
+				</ReturnCode>
+				<ReturnCode eq="1638" msgKey="RedistVC14x64NewerVersionInstalled" type="success" />
+				<ReturnCode msgKey="RedistVC14x64Failed" neq="0" type="fail">
+					<Param value="SPE_RC" />
+					<Param value="^p(tmpInstall)\RedistVC141x64.log" />
+					<Button action="abort" />
+				</ReturnCode>
+			</LaunchAppAction>
+			<FileAction diskSpace="30027960" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="18" fw="LCCommon" name="CODE\win_b64\LCCommon" version="423.5">
+		<Actions>
+			<FileAction diskSpace="18900600" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="19" fw="XMLParserItf" name="CODE\win_b64\XMLParserItf" version="423.5">
+		<Actions>
+			<FileAction diskSpace="493570" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="20" fw="SMAAqenv" name="CODE\win_b64\SMAAqenv" version="423.5">
+		<Actions>
+			<FileAction diskSpace="230982" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="21" fw="SMAPyaModules" name="CODE\win_b64\SMAPyaModules" version="423.5">
+		<Actions>
+			<DeleteFileAction actError="notAnError" actPathDoesNotExist="notAnError" condition="FIXED:TARGET_PATH" id="deletePluginPYCfiles" path="^e(TARGET_PATH)\win_b64\code\python2.7\lib\abaqus_plugins\examples" type="dir" whenAdditional="never" whenDelete="checker" whenFirstInstall="never" whenUpgrade="never" />
+			<FileAction diskSpace="75513561" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="22" fw="SMAPylModules" name="CODE\win_b64\SMAPylModules" version="423.5">
+		<Actions>
+			<FileAction diskSpace="1811353" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="23" fw="SMAPyrModules" name="CODE\win_b64\SMAPyrModules" version="423.5">
+		<Actions>
+			<FileAction diskSpace="2406135" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="24" fw="SMASyf" name="CODE\win_b64\SMASyf" version="423.5">
+		<Actions>
+			<FileAction diskSpace="585831" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="25" fw="SMAPl5" name="CODE\win_b64\SMAPl5" version="423.5">
+		<Actions>
+			<FileAction diskSpace="3293232" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="26" fw="SMABase" name="CODE\win_b64\SMABase" version="423.5">
+		<Actions>
+			<FileAction diskSpace="4128768" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="27" fw="SMABranch" name="CODE\win_b64\SMABranch" version="423.5">
+		<Actions>
+			<FileAction diskSpace="2157" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="28" fw="SMAUzlUtiZlib" name="CODE\win_b64\SMAUzlUtiZlib" version="423.5">
+		<Actions>
+			<FileAction diskSpace="95848" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="29" fw="Administration" name="CODE\win_b64\Administration" version="423.5">
+		<Variables>
+			<Path fixed="true" name="Path_dico_bin" type="dir" value="^s[^e(TARGET_PATH)/win_b64/code/dictionary/DirForBinOMDictionary]" />
+			<Path fixed="true" name="Path_Control" type="dir" value="^s[^e(TARGET_PATH)/win_b64/control]" />
+			<CheckBoxes canSubscribe="true" msgCatalog="Inst_Administration" name="CustomShortcuts">
+				<CheckBoxItem name="AdminToolsShortcut" value="true" />
+			</CheckBoxes>
+		</Variables>
+		<Actions>
+			<DeleteFileAction actPathDoesNotExist="notAnError" condition="DONE:ObjectModelerDicoCompiler_Done" id="del_dicobin" name="ObjectModelerBinaryDictionary.bindict" targetDir="Path_dico_bin" type="file" whenAdditional="never" whenDelete="early" whenFirstInstall="never" whenUpgrade="never" />
+			<CreateDirAction id="CreatePathDicoBin" targetDir="Path_dico_bin" />
+			<LaunchAppAction arguments="-run &quot;JS0CORBADicExe -p \&quot;^s[^e(TARGET_PATH)\win_b64]\&quot;&quot; -env Env -direnv &quot;^e(Path_Catenv)&quot;" condition="DONE:EnvCreation:DSYAdmEnvMgt" exe="^e(TARGET_PATH)\win_b64\code\bin\CATSTART" forceOSBitMode="64" id="ObjectModelerDicoCompiler_Done" msgCatalog="Inst_System" wait="true" whenAdditional="normal" whenDelete="never" whenFirstInstall="normal" whenUpgrade="atTheEnd">
+				<ReturnCode msgKey="compilationBinaryDicoFailed" neq="0" type="fail">
+					<Param value="SPE_RC" />
+					<Button action="ok" />
+				</ReturnCode>
+			</LaunchAppAction>
+			<CreateDirAction id="CreatePathControl" targetDir="Path_Control" />
+			<LaunchAppAction arguments="&quot;^s[^e(Path_Control)]&quot; ^s[^G(SelectProduct)]" exe="^v(CATInst)\win_b64\code\bin\DSYPcfgList.exe" forceOSBitMode="64" id="CreatePCFGlist" msgCatalog="Inst_Administration" useInstallerEnvironment="true" wait="true" whenAdditional="atTheEnd" whenDelete="never" whenFirstInstall="atTheEnd" whenUpgrade="atTheEnd">
+				<ReturnCode msgKey="DSYPcfgListProductFailed" neq="0" type="fail">
+					<Param value="SPE_RC" />
+					<Param value="SPE_ERR" />
+					<Button action="ok" />
+				</ReturnCode>
+			</LaunchAppAction>
+			<DeleteFileAction actPathDoesNotExist="notAnError" id="del_PCFG_list_File" name="win_b64\control\PCFG.list" type="file" whenAdditional="never" whenDelete="normal" whenFirstInstall="never" whenUpgrade="never" />
+			<FileAction diskSpace="2154470" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="30" fw="Dialog" name="CODE\win_b64\Dialog" version="423.5">
+		<Actions>
+			<FileAction diskSpace="5221498" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="31" fw="PictoGraphicBase" name="CODE\win_b64\PictoGraphicBase" version="423.5">
+		<Actions>
+			<FileAction diskSpace="101783" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="32" fw="VENMOTIF" name="CODE\win_b64\VENMOTIF" version="423.5" />
+	<Feature featureId="33" fw="IntrospectionInfrastructure" name="CODE\win_b64\IntrospectionInfrastructure" version="423.5">
+		<Actions>
+			<FileAction diskSpace="662438" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="34" fw="CATStyleProcessor" name="CODE\win_b64\CATStyleProcessor" version="423.5">
+		<Actions>
+			<FileAction diskSpace="431245" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="35" fw="UIScriptBase" name="CODE\win_b64\UIScriptBase" version="423.5">
+		<Actions>
+			<FileAction diskSpace="118475" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="36" fw="UIVCoreTools" name="CODE\win_b64\UIVCoreTools" version="423.5">
+		<Actions>
+			<FileAction diskSpace="142440" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="37" fw="Mathematics" name="CODE\win_b64\Mathematics" version="423.5">
+		<Actions>
+			<FileAction diskSpace="1815902" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="38" fw="OpDataInterfaces" name="CODE\win_b64\OpDataInterfaces" version="423.5">
+		<Actions>
+			<FileAction diskSpace="22504" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="39" fw="ECMAScriptEngine" name="CODE\win_b64\ECMAScriptEngine" version="423.5">
+		<Actions>
+			<FileAction diskSpace="715365" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="40" fw="VIAMPFoundation" name="CODE\win_b64\VIAMPFoundation" version="423.5">
+		<Actions>
+			<FileAction diskSpace="906728" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="41" fw="VENV8" name="CODE\win_b64\VENV8" version="423.5">
+		<Actions>
+			<FileAction diskSpace="19862016" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="42" fw="ExperienceKernel" name="CODE\win_b64\ExperienceKernel" version="423.5">
+		<Actions>
+			<FileAction diskSpace="1233208" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="43" fw="CSICommandBinder" name="CODE\win_b64\CSICommandBinder" version="423.5">
+		<Actions>
+			<FileAction diskSpace="1906945" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="44" fw="SystemAdvanced" name="CODE\win_b64\SystemAdvanced" version="423.5" />
+	<Feature featureId="45" fw="SystemExtensions" name="CODE\win_b64\SystemExtensions" version="423.5">
+		<Actions>
+			<FileAction diskSpace="1486736" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="46" fw="Communications" name="CODE\win_b64\Communications" version="423.5">
+		<Actions>
+			<FileAction diskSpace="705533" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="47" fw="InfInterfaces" name="CODE\win_b64\InfInterfaces" version="423.5">
+		<Actions>
+			<FileAction diskSpace="96914" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="48" fw="InfOSIDLItf" name="CODE\win_b64\InfOSIDLItf" version="423.5">
+		<Actions>
+			<FileAction diskSpace="47426" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="49" fw="InfInterfacesTLB" name="CODE\win_b64\InfInterfacesTLB" version="423.5">
+		<Actions>
+			<FileAction diskSpace="202412" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="50" fw="CATJavaBridge" name="CODE\win_b64\CATJavaBridge" version="423.5">
+		<Actions>
+			<FileAction diskSpace="66856" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="51" fw="AutomationInterfaces" name="CODE\win_b64\AutomationInterfaces" version="423.5">
+		<Actions>
+			<FileAction diskSpace="200975" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="52" fw="InfOSIDLImpl" name="CODE\win_b64\InfOSIDLImpl" version="423.5">
+		<Actions>
+			<FileAction diskSpace="98251" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="53" fw="VBA" name="CODE\win_b64\VBA" version="423.5">
+		<Actions>
+			<FileAction diskSpace="315526" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="54" fw="CATPLMServDisco" name="CODE\win_b64\CATPLMServDisco" version="423.5">
+		<Actions>
+			<FileAction diskSpace="54864" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="55" fw="CATPLMServDiscoImpl" name="CODE\win_b64\CATPLMServDiscoImpl" version="423.5">
+		<Actions>
+			<FileAction diskSpace="109016" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="56" fw="CATCustomActionMSI" name="CODE\win_b64\CATCustomActionMSI" version="423.5" />
+	<Feature featureId="57" fw="XMLParserMSChecker" name="CODE\win_b64\XMLParserMSChecker" version="423.5">
+		<Actions>
+			<FileAction diskSpace="16316" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="58" fw="DSYAdmEnvMgtUI" name="CODE\win_b64\DSYAdmEnvMgtUI" version="423.5">
+		<Actions>
+			<CreateShortcutAction arguments="-run &quot;CATIAENV&quot; [ENV] [CATENVPATH] -nowindow" createXML="true" description="Launch CATIAEnv tool" exe="[TARGETPATH]\win_b64\code\bin\CATSTART.exe" icon="[TARGETPATH]\win_b64\code\bin\CATIAEnv.exe" id="DSYAdmInt_CATIAEnvShortcut_createXML" name="Environment Editor" where="DStools" />
+			<CreateShortcutAction arguments="-run &quot;CATIAENV&quot; -env Env -direnv &quot;^e(TARGET_PATH)\CATEnv&quot; -nowindow" condition="CustomShortcuts.AdminToolsShortcut" description="Launch CATIAEnv tool" exe="^e(TARGET_PATH)\win_b64\code\bin\CATSTART.exe" icon="^e(TARGET_PATH)\win_b64\code\bin\CATIAEnv.exe" id="CATIAEnvShortcut" name="Environment Editor" where="DStools" />
+			<FileAction diskSpace="313832" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="59" fw="DSYAdmEnvMgt" name="CODE\win_b64\DSYAdmEnvMgt" version="423.5">
+		<Variables>
+			<Path fixed="true" name="Path_Catenv" type="dir" value="^e(TARGET_PATH)/CATEnv" />
+			<Text fixed="true" hidden="true" name="ArgsDsyEnvMgt" value="-create -d INSTALL -type ^it(id)" />
+		</Variables>
+		<Actions>
+			<CreateDirAction id="CreatePathCatenv" targetDir="Path_Catenv" />
+			<LaunchAppAction arguments="^e(ArgsDsyEnvMgt)" exe="^e(TARGET_PATH)\win_b64\code\bin\DSYEnvMgt" forceOSBitMode="64" id="EnvCreation" msgCatalog="Inst_Administration" wait="true">
+				<setenv key="LIBPATH" value="^e(TARGET_PATH)/win_b64/code/bin" />
+				<setenv key="LD_LIBRARY_PATH" value="^e(TARGET_PATH)/win_b64/code/bin" />
+				<setenv key="LD_LIBRARYN32_PATH" value="^e(TARGET_PATH)/win_b64/code/bin" />
+				<setenv key="DYLD_LIBRARY_PATH" value="^e(TARGET_PATH)/win_b64/code/bin" />
+				<setenv key="CATReffilesPath" value="" />
+				<setenv key="CATInstallPath" value="" />
+				<ReturnCode msgKey="EnvCreationFailed" neq="0" type="fail">
+					<Param value="SPE_RC" />
+					<Param value="SPE_OUT" />
+					<Button action="ok" />
+				</ReturnCode>
+			</LaunchAppAction>
+			<DeleteFileAction actPathDoesNotExist="notAnError" id="EnvDeletion" name="CATEnv\Env.txt" type="file" whenAdditional="never" whenDelete="atTheEnd" whenFirstInstall="never" whenUpgrade="never" />
+			<DeleteFileAction actPathDoesNotExist="notAnError" id="del_SetupEnvLog" name="SetupEnv.log" type="file" whenAdditional="never" whenDelete="atTheEnd" whenFirstInstall="never" whenUpgrade="never" />
+			<FileAction diskSpace="718259" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="60" fw="DSYInsInfra" name="CODE\win_b64\DSYInsInfra" version="423.5">
+		<Actions>
+			<FileAction diskSpace="606168" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="61" fw="VENFORTRAN" name="CODE\win_b64\VENFORTRAN" version="423.5">
+		<Actions>
+			<FileAction diskSpace="22389560" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="62" fw="SMAAbuAbaqusUtilities" name="CODE\win_b64\SMAAbuAbaqusUtilities" version="423.5">
+		<Actions>
+			<FileAction diskSpace="4350864" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="63" fw="SMAMsgCommServices" name="CODE\win_b64\SMAMsgCommServices" version="423.5">
+		<Actions>
+			<FileAction diskSpace="142952" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="64" fw="SMAAspSchema" name="CODE\win_b64\SMAAspSchema" version="423.5">
+		<Actions>
+			<FileAction diskSpace="5106768" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="65" fw="SMACfgFeaConfiguration" name="CODE\win_b64\SMACfgFeaConfiguration" version="423.5">
+		<Actions>
+			<FileAction diskSpace="64616" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="66" fw="SMACSim" name="CODE\win_b64\SMACSim" version="423.5">
+		<Actions>
+			<FileAction diskSpace="916072" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="67" fw="SMACSrvSimServices" name="CODE\win_b64\SMACSrvSimServices" version="423.5">
+		<Actions>
+			<FileAction diskSpace="618600" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="68" fw="SMADyn" name="CODE\win_b64\SMADyn" version="423.5">
+		<Actions>
+			<FileAction diskSpace="815184" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="69" fw="SMAISim" name="CODE\win_b64\SMAISim" version="423.5">
+		<Actions>
+			<FileAction diskSpace="495720" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="70" fw="SMAISrvSimServices" name="CODE\win_b64\SMAISrvSimServices" version="423.5">
+		<Actions>
+			<FileAction diskSpace="477288" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="71" fw="SMAMtkMapperToolKit" name="CODE\win_b64\SMAMtkMapperToolKit" version="423.5">
+		<Actions>
+			<FileAction diskSpace="1434216" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="72" fw="SMAMtx" name="CODE\win_b64\SMAMtx" version="423.5">
+		<Actions>
+			<FileAction diskSpace="857704" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="73" fw="SMAPtkPathToolKit" name="CODE\win_b64\SMAPtkPathToolKit" version="423.5">
+		<Actions>
+			<FileAction diskSpace="766056" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="74" fw="SMASim" name="CODE\win_b64\SMASim" version="423.5">
+		<Actions>
+			<FileAction diskSpace="17683048" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="75" fw="SMASimHLApi" name="CODE\win_b64\SMASimHLApi" version="423.5">
+		<Actions>
+			<FileAction diskSpace="1103976" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="76" fw="SMASimSchema" name="CODE\win_b64\SMASimSchema" version="423.5">
+		<Actions>
+			<FileAction diskSpace="5515488" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="77" fw="SMABla" name="CODE\win_b64\SMABla" version="423.5">
+		<Actions>
+			<FileAction diskSpace="292048" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="78" fw="SMAObjSimObjects" name="CODE\win_b64\SMAObjSimObjects" version="423.5">
+		<Actions>
+			<FileAction diskSpace="333416" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="79" fw="SMASrvSimServices" name="CODE\win_b64\SMASrvSimServices" version="423.5">
+		<Actions>
+			<FileAction diskSpace="1129168" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="80" fw="SMAFsm" name="CODE\win_b64\SMAFsm" version="423.5">
+		<Actions>
+			<FileAction diskSpace="277592" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="81" fw="SMASglSimGenericLayer" name="CODE\win_b64\SMASglSimGenericLayer" version="423.5">
+		<Actions>
+			<FileAction diskSpace="926416" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="82" fw="SMAFeoFeaSimServices" name="CODE\win_b64\SMAFeoFeaSimServices" version="423.5">
+		<Actions>
+			<FileAction diskSpace="249960" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="83" fw="SMAFeaBackbone" name="CODE\win_b64\SMAFeaBackbone" version="423.5">
+		<Actions>
+			<FileAction diskSpace="36153" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="84" fw="SMAMsgFeaMessaging" name="CODE\win_b64\SMAMsgFeaMessaging" version="423.5">
+		<Actions>
+			<FileAction diskSpace="158824" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="85" fw="SMASimGenServices" name="CODE\win_b64\SMASimGenServices" version="423.5">
+		<Actions>
+			<FileAction diskSpace="353384" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="86" fw="SMASfsShapeFuncSrv" name="CODE\win_b64\SMASfsShapeFuncSrv" version="423.5">
+		<Actions>
+			<FileAction diskSpace="1819752" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="87" fw="DSYSysBBDemon" name="CODE\win_b64\DSYSysBBDemon" version="423.5" />
+	<Feature featureId="88" fw="SMAPyc27" name="CODE\win_b64\SMAPyc27" version="423.5">
+		<Actions>
+			<FileAction diskSpace="316559688" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="89" fw="SMAAcisLib" name="CODE\win_b64\SMAAcisLib" version="423.5">
+		<Actions>
+			<FileAction diskSpace="595109778" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="90" fw="SMAAfc" name="CODE\win_b64\SMAAfc" version="423.5">
+		<Actions>
+			<FileAction diskSpace="2434152" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="91" fw="SMACaeHelp" name="CODE\win_b64\SMACaeHelp" version="423.5" />
+	<Feature featureId="92" fw="SMACcoCaeCom" name="CODE\win_b64\SMACcoCaeCom" version="423.5">
+		<Actions>
+			<FileAction diskSpace="1744488" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="93" fw="SMACgaGeometryApplication" name="CODE\win_b64\SMACgaGeometryApplication" version="423.5">
+		<Actions>
+			<FileAction diskSpace="6561384" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="94" fw="SMACgiGeometryInfrastructure" name="CODE\win_b64\SMACgiGeometryInfrastructure" version="423.5">
+		<Actions>
+			<FileAction diskSpace="6303032" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="95" fw="SMACgmCaeGuiMod" name="CODE\win_b64\SMACgmCaeGuiMod" version="423.5">
+		<Actions>
+			<FileAction diskSpace="1066865" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="96" fw="SMACinCaeInter" name="CODE\win_b64\SMACinCaeInter" version="423.5">
+		<Actions>
+			<FileAction diskSpace="46416312" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="97" fw="SMACkeCaeKer" name="CODE\win_b64\SMACkeCaeKer" version="423.5">
+		<Actions>
+			<FileAction diskSpace="36120360" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="98" fw="SMACkmCaeKerMod" name="CODE\win_b64\SMACkmCaeKerMod" version="423.5">
+		<Actions>
+			<FileAction diskSpace="377098" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="99" fw="SMACmaMeshingApplication" name="CODE\win_b64\SMACmaMeshingApplication" version="423.5">
+		<Actions>
+			<FileAction diskSpace="6265448" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="100" fw="SMACmiMeshingInfrastructure" name="CODE\win_b64\SMACmiMeshingInfrastructure" version="423.5">
+		<Actions>
+			<FileAction diskSpace="9426536" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="101" fw="SMAFoxAPI" name="CODE\win_b64\SMAFoxAPI" version="423.5">
+		<Actions>
+			<FileAction diskSpace="2033360" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="102" fw="SMAGimGeometryImport" name="CODE\win_b64\SMAGimGeometryImport" version="423.5">
+		<Actions>
+			<FileAction diskSpace="204296" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="103" fw="SMAInbInteractiveInfra" name="CODE\win_b64\SMAInbInteractiveInfra" version="423.5">
+		<Actions>
+			<FileAction diskSpace="24898889" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="104" fw="SMAIngInteractiveInfraGUI" name="CODE\win_b64\SMAIngInteractiveInfraGUI" version="423.5">
+		<Actions>
+			<FileAction diskSpace="12685693" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="105" fw="SMAInkInteractiveInfraKernel" name="CODE\win_b64\SMAInkInteractiveInfraKernel" version="423.5">
+		<Actions>
+			<FileAction diskSpace="6447004" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="106" fw="SMALgrLibGraphics" name="CODE\win_b64\SMALgrLibGraphics" version="423.5" />
+	<Feature featureId="107" fw="SMAPde" name="CODE\win_b64\SMAPde" version="423.5">
+		<Actions>
+			<FileAction diskSpace="856983" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="108" fw="SMAPyxMdbUpgrade" name="CODE\win_b64\SMAPyxMdbUpgrade" version="423.5">
+		<Actions>
+			<FileAction diskSpace="2961344" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="109" fw="SMARaster" name="CODE\win_b64\SMARaster" version="423.5">
+		<Actions>
+			<FileAction diskSpace="451280" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="110" fw="SMAStiStableTimeIncrement" name="CODE\win_b64\SMAStiStableTimeIncrement" version="423.5">
+		<Actions>
+			<FileAction diskSpace="914024" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="111" fw="SMAVagAtvGui" name="CODE\win_b64\SMAVagAtvGui" version="423.5">
+		<Actions>
+			<FileAction diskSpace="7231080" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="112" fw="SMAVcoVwrCom" name="CODE\win_b64\SMAVcoVwrCom" version="423.5">
+		<Actions>
+			<FileAction diskSpace="813160" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="113" fw="SMAVgmVwrGuiMod" name="CODE\win_b64\SMAVgmVwrGuiMod" version="423.5">
+		<Actions>
+			<FileAction diskSpace="3390981" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="114" fw="SMAVmoVwrMod" name="CODE\win_b64\SMAVmoVwrMod" version="423.5">
+		<Actions>
+			<FileAction diskSpace="12330808" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="115" fw="CATCDSPlug2DItf" name="CODE\win_b64\CATCDSPlug2DItf" version="423.5">
+		<Actions>
+			<FileAction diskSpace="406328" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="116" fw="CATCDS" name="CODE\win_b64\CATCDS" version="423.5">
+		<Actions>
+			<FileAction diskSpace="5328488" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="117" fw="CATCDSUtilities" name="CODE\win_b64\CATCDSUtilities" version="423.5">
+		<Actions>
+			<FileAction diskSpace="541800" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="118" fw="CATWBx" name="CODE\win_b64\CATWBx" version="423.5">
+		<Actions>
+			<FileAction diskSpace="610920" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="119" fw="SMAFlexnet" name="CODE\win_b64\SMAFlexnet" version="423.5">
+		<Actions>
+			<FileAction diskSpace="21926944" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="120" fw="SMAInpFlattener" name="CODE\win_b64\SMAInpFlattener" version="423.5">
+		<Actions>
+			<FileAction diskSpace="1686224" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="121" fw="SMAIof" name="CODE\win_b64\SMAIof" version="423.5">
+		<Actions>
+			<FileAction diskSpace="1601640" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="122" fw="SMACdb" name="CODE\win_b64\SMACdb" version="423.5">
+		<Actions>
+			<FileAction diskSpace="2201504" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="123" fw="SMAOdb" name="CODE\win_b64\SMAOdb" version="423.5">
+		<Actions>
+			<FileAction diskSpace="43373608" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="124" fw="SMAOdb2Sim" name="CODE\win_b64\SMAOdb2Sim" version="423.5">
+		<Actions>
+			<FileAction diskSpace="2183888" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="125" fw="SMAAspAnalysisSupport" name="CODE\win_b64\SMAAspAnalysisSupport" version="423.5">
+		<Actions>
+			<FileAction diskSpace="7267216" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="126" fw="SMAI2sInp2Sim" name="CODE\win_b64\SMAI2sInp2Sim" version="423.5">
+		<Actions>
+			<FileAction diskSpace="13514968" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="127" fw="SMAPst" name="CODE\win_b64\SMAPst" version="423.5">
+		<Actions>
+			<FileAction diskSpace="187368" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="128" fw="SMASub" name="CODE\win_b64\SMASub" version="423.5">
+		<Actions>
+			<FileAction diskSpace="640928" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="129" fw="SMATlpSimTools" name="CODE\win_b64\SMATlpSimTools" version="423.5">
+		<Actions>
+			<FileAction diskSpace="30824" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="130" fw="SMATlsSimTools" name="CODE\win_b64\SMATlsSimTools" version="423.5">
+		<Actions>
+			<FileAction diskSpace="2892733" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="131" fw="SMAUsubs" name="CODE\win_b64\SMAUsubs" version="423.5">
+		<Actions>
+			<FileAction diskSpace="20072" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="132" fw="SMAEliLicensing" name="CODE\win_b64\SMAEliLicensing" version="423.5">
+		<Actions>
+			<FileAction diskSpace="21685568" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="133" fw="ExperienceKernelAddins" name="CODE\win_b64\ExperienceKernelAddins" version="423.5">
+		<Actions>
+			<FileAction diskSpace="3725312" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="134" fw="SMAEliBase" name="CODE\win_b64\SMAEliBase" version="423.5">
+		<Actions>
+			<FileAction diskSpace="2581608" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="135" fw="SMAElkElementKernel" name="CODE\win_b64\SMAElkElementKernel" version="423.5">
+		<Actions>
+			<FileAction diskSpace="218216" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="136" fw="SMAGpuLayer" name="CODE\win_b64\SMAGpuLayer" version="423.5">
+		<Actions>
+			<FileAction diskSpace="20072" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="137" fw="SMALcuLibCUDA" name="CODE\win_b64\SMALcuLibCUDA" version="423.5">
+		<Actions>
+			<FileAction diskSpace="94996968" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="138" fw="SMALpeLibPETSC" name="CODE\win_b64\SMALpeLibPETSC" version="423.5" />
+	<Feature featureId="139" fw="SMARom" name="CODE\win_b64\SMARom" version="423.5">
+		<Actions>
+			<FileAction diskSpace="3388778" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="140" fw="SMAShpShape" name="CODE\win_b64\SMAShpShape" version="423.5">
+		<Actions>
+			<FileAction diskSpace="855144" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="141" fw="SMAPltModelerCore" name="CODE\win_b64\SMAPltModelerCore" version="423.5">
+		<Actions>
+			<FileAction diskSpace="361064" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="142" fw="SMAPybindings" name="CODE\win_b64\SMAPybindings" version="423.5">
+		<Actions>
+			<FileAction diskSpace="806304" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="143" fw="SMAPydModules" name="CODE\win_b64\SMAPydModules" version="423.5">
+		<Actions>
+			<FileAction diskSpace="167016" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="144" fw="SMAPyextStd" name="CODE\win_b64\SMAPyextStd" version="423.5">
+		<Actions>
+			<FileAction diskSpace="66768" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="145" fw="SMAPyqModules" name="CODE\win_b64\SMAPyqModules" version="423.5">
+		<Actions>
+			<FileAction diskSpace="5482824" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="146" fw="SMAPython" name="CODE\win_b64\SMAPython" version="423.5">
+		<Actions>
+			<FileAction diskSpace="5383678" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="147" fw="VENCEF" name="CODE\win_b64\VENCEF" version="423.5">
+		<Actions>
+			<FileAction diskSpace="184908367" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="148" fw="VENQTUtil" name="CODE\win_b64\VENQTUtil" version="423.5">
+		<Actions>
+			<FileAction diskSpace="153996343" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="149" fw="SMALncMainSE" name="CODE\win_b64\SMALncMainSE" version="423.5">
+		<Actions>
+			<FileAction diskSpace="159848" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="150" fw="SMALauncher" name="CODE\win_b64\SMALauncher" version="423.5">
+		<Actions>
+			<FileAction diskSpace="25346" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="151" fw="VENMKL" name="CODE\win_b64\VENMKL" version="423.5">
+		<Actions>
+			<FileAction diskSpace="498219264" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="152" fw="SMADmp" name="CODE\win_b64\SMADmp" version="423.5">
+		<Actions>
+			<FileAction diskSpace="1097632" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="153" fw="VENMPI" name="CODE\win_b64\VENMPI" version="423.5">
+		<Actions>
+			<FileAction diskSpace="1608360" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="154" fw="SMAExternal" name="CODE\win_b64\SMAExternal" version="423.5">
+		<Actions>
+			<FileAction diskSpace="4594976" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="155" fw="SMASamples" name="CODE\win_b64\SMASamples" version="423.5">
+		<Actions>
+			<FileAction diskSpace="765112636" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature description="Abaqus Standard Solver Student Edition" featureId="156" fw="SIMAQSS_TP.prd" name="CODE\win_b64\SIMAQSS_TP.prd" version="423.5">
+		<Actions>
+			<FileAction diskSpace="6055" volume="1" />
+		</Actions>
+		<IncludeFeature name="CODE\win_b64\Administration" />
+		<IncludeFeature name="CODE\win_b64\SystemTS" />
+		<IncludeFeature name="CODE\win_b64\SpecialAPI" />
+		<IncludeFeature name="CODE\win_b64\System" />
+		<IncludeFeature name="CODE\win_b64\InsVCpreq" />
+		<IncludeFeature name="CODE\win_b64\LCCommon" />
+		<IncludeFeature name="CODE\win_b64\XMLParserItf" />
+		<IncludeFeature name="CODE\win_b64\Dialog" />
+		<IncludeFeature name="CODE\win_b64\PictoGraphicBase" />
+		<IncludeFeature name="CODE\win_b64\VENMOTIF" />
+		<IncludeFeature name="CODE\win_b64\IntrospectionInfrastructure" />
+		<IncludeFeature name="CODE\win_b64\CATStyleProcessor" />
+		<IncludeFeature name="CODE\win_b64\UIScriptBase" />
+		<IncludeFeature name="CODE\win_b64\UIVCoreTools" />
+		<IncludeFeature name="CODE\win_b64\Mathematics" />
+		<IncludeFeature name="CODE\win_b64\OpDataInterfaces" />
+		<IncludeFeature name="CODE\win_b64\ECMAScriptEngine" />
+		<IncludeFeature name="CODE\win_b64\VIAMPFoundation" />
+		<IncludeFeature name="CODE\win_b64\VENV8" />
+		<IncludeFeature name="CODE\win_b64\ExperienceKernel" />
+		<IncludeFeature name="CODE\win_b64\CSICommandBinder" />
+		<IncludeFeature name="CODE\win_b64\SystemAdvanced" />
+		<IncludeFeature name="CODE\win_b64\SystemExtensions" />
+		<IncludeFeature name="CODE\win_b64\Communications" />
+		<IncludeFeature name="CODE\win_b64\InfInterfaces" />
+		<IncludeFeature name="CODE\win_b64\InfOSIDLItf" />
+		<IncludeFeature name="CODE\win_b64\InfInterfacesTLB" />
+		<IncludeFeature name="CODE\win_b64\CATJavaBridge" />
+		<IncludeFeature name="CODE\win_b64\AutomationInterfaces" />
+		<IncludeFeature name="CODE\win_b64\InfOSIDLImpl" />
+		<IncludeFeature name="CODE\win_b64\VBA" />
+		<IncludeFeature name="CODE\win_b64\CATPLMServDisco" />
+		<IncludeFeature name="CODE\win_b64\CATPLMServDiscoImpl" />
+		<IncludeFeature name="CODE\win_b64\CATCustomActionMSI" />
+		<IncludeFeature name="CODE\win_b64\XMLParserMSChecker" />
+		<IncludeFeature name="CODE\win_b64\DSYAdmEnvMgtUI" />
+		<IncludeFeature name="CODE\win_b64\DSYAdmEnvMgt" />
+		<IncludeFeature name="CODE\win_b64\DSYInsInfra" />
+		<IncludeFeature name="CODE\win_b64\SMAFil" />
+		<IncludeFeature name="CODE\win_b64\SMASel" />
+		<IncludeFeature name="CODE\win_b64\SMAAmmAnalysisMemManagers" />
+		<IncludeFeature name="CODE\win_b64\SMAAncAnalysisCore" />
+		<IncludeFeature name="CODE\win_b64\SMACntContact" />
+		<IncludeFeature name="CODE\win_b64\SMACntGeom" />
+		<IncludeFeature name="CODE\win_b64\SMACsmCosimulation" />
+		<IncludeFeature name="CODE\win_b64\SMADciDirectCosimInterface" />
+		<IncludeFeature name="CODE\win_b64\SMAEqsEquationSolvers" />
+		<IncludeFeature name="CODE\win_b64\SMAGpuLibMagma" />
+		<IncludeFeature name="CODE\win_b64\SMAGraph" />
+		<IncludeFeature name="CODE\win_b64\SMAIomAnalysisIOManagers" />
+		<IncludeFeature name="CODE\win_b64\SMAMetis" />
+		<IncludeFeature name="CODE\win_b64\SMAMtoMapperToolKitOdb" />
+		<IncludeFeature name="CODE\win_b64\SMAPreprocessor" />
+		<IncludeFeature name="CODE\win_b64\SMASharedAnalysis_DP" />
+		<IncludeFeature name="CODE\win_b64\SMASharedAnalysis_SP" />
+		<IncludeFeature name="CODE\win_b64\SMASharedAnalysis_XP" />
+		<IncludeFeature name="CODE\win_b64\SMAStsStandardSupport" />
+		<IncludeFeature name="CODE\win_b64\SMAUStd" />
+		<IncludeFeature name="CODE\win_b64\SMAXsiExternalSolverInterface" />
+		<IncludeFeature name="CODE\win_b64\ExperienceKernelAddins" />
+		<IncludeFeature name="CODE\win_b64\SMAAqenv" />
+		<IncludeFeature name="CODE\win_b64\SMAPyaModules" />
+		<IncludeFeature name="CODE\win_b64\SMAPylModules" />
+		<IncludeFeature name="CODE\win_b64\SMAPyrModules" />
+		<IncludeFeature name="CODE\win_b64\SMASyf" />
+		<IncludeFeature name="CODE\win_b64\SMAPl5" />
+		<IncludeFeature name="CODE\win_b64\SMABase" />
+		<IncludeFeature name="CODE\win_b64\SMABranch" />
+		<IncludeFeature name="CODE\win_b64\SMAUzlUtiZlib" />
+		<IncludeFeature name="CODE\win_b64\VENFORTRAN" />
+		<IncludeFeature name="CODE\win_b64\SMAAbuAbaqusUtilities" />
+		<IncludeFeature name="CODE\win_b64\SMAMsgCommServices" />
+		<IncludeFeature name="CODE\win_b64\SMAAspSchema" />
+		<IncludeFeature name="CODE\win_b64\SMACfgFeaConfiguration" />
+		<IncludeFeature name="CODE\win_b64\SMACSim" />
+		<IncludeFeature name="CODE\win_b64\SMACSrvSimServices" />
+		<IncludeFeature name="CODE\win_b64\SMADyn" />
+		<IncludeFeature name="CODE\win_b64\SMAISim" />
+		<IncludeFeature name="CODE\win_b64\SMAISrvSimServices" />
+		<IncludeFeature name="CODE\win_b64\SMAMtkMapperToolKit" />
+		<IncludeFeature name="CODE\win_b64\SMAMtx" />
+		<IncludeFeature name="CODE\win_b64\SMAPtkPathToolKit" />
+		<IncludeFeature name="CODE\win_b64\SMASim" />
+		<IncludeFeature name="CODE\win_b64\SMASimHLApi" />
+		<IncludeFeature name="CODE\win_b64\SMASimSchema" />
+		<IncludeFeature name="CODE\win_b64\SMABla" />
+		<IncludeFeature name="CODE\win_b64\SMAObjSimObjects" />
+		<IncludeFeature name="CODE\win_b64\SMASrvSimServices" />
+		<IncludeFeature name="CODE\win_b64\SMAFsm" />
+		<IncludeFeature name="CODE\win_b64\SMASglSimGenericLayer" />
+		<IncludeFeature name="CODE\win_b64\SMAFeoFeaSimServices" />
+		<IncludeFeature name="CODE\win_b64\SMAFeaBackbone" />
+		<IncludeFeature name="CODE\win_b64\SMAMsgFeaMessaging" />
+		<IncludeFeature name="CODE\win_b64\SMASimGenServices" />
+		<IncludeFeature name="CODE\win_b64\SMASfsShapeFuncSrv" />
+		<IncludeFeature name="CODE\win_b64\DSYSysBBDemon" />
+		<IncludeFeature name="CODE\win_b64\SMAPyc27" />
+		<IncludeFeature name="CODE\win_b64\SMACseCosimulationEngine" />
+		<IncludeFeature name="CODE\win_b64\SMACseDmpInterface" />
+		<IncludeFeature name="CODE\win_b64\SMACseDmpImplementation" />
+		<IncludeFeature name="CODE\win_b64\SMAAspAnalysisSupport" />
+		<IncludeFeature name="CODE\win_b64\SMAI2sInp2Sim" />
+		<IncludeFeature name="CODE\win_b64\SMAPst" />
+		<IncludeFeature name="CODE\win_b64\SMASub" />
+		<IncludeFeature name="CODE\win_b64\SMATlpSimTools" />
+		<IncludeFeature name="CODE\win_b64\SMATlsSimTools" />
+		<IncludeFeature name="CODE\win_b64\SMAUsubs" />
+		<IncludeFeature name="CODE\win_b64\SMAEliLicensing" />
+		<IncludeFeature name="CODE\win_b64\SMAEliBase" />
+		<IncludeFeature name="CODE\win_b64\SMAElkElementKernel" />
+		<IncludeFeature name="CODE\win_b64\SMAGpuLayer" />
+		<IncludeFeature name="CODE\win_b64\SMALcuLibCUDA" />
+		<IncludeFeature name="CODE\win_b64\SMALpeLibPETSC" />
+		<IncludeFeature name="CODE\win_b64\SMARom" />
+		<IncludeFeature name="CODE\win_b64\SMAShpShape" />
+		<IncludeFeature name="CODE\win_b64\XMLParserMS" />
+		<IncludeFeature name="CODE\win_b64\XMLParser" />
+		<IncludeFeature name="CODE\win_b64\VENApacheXerces" />
+		<IncludeFeature name="CODE\win_b64\VENApacheXalan" />
+		<IncludeFeature name="CODE\win_b64\SMAInpFlattener" />
+		<IncludeFeature name="CODE\win_b64\SMAIof" />
+		<IncludeFeature name="CODE\win_b64\SMACdb" />
+		<IncludeFeature name="CODE\win_b64\SMAOdb" />
+		<IncludeFeature name="CODE\win_b64\SMAOdb2Sim" />
+		<IncludeFeature name="CODE\win_b64\SMAMtrMaterialResponse" />
+		<IncludeFeature name="CODE\win_b64\VENMKL" />
+		<IncludeFeature name="CODE\win_b64\VENCuda" />
+		<IncludeFeature name="CODE\win_b64\SMAStaMainSE" />
+		<IncludeFeature name="CODE\win_b64\SMACalFeaCalculator" />
+		<IncludeFeature name="CODE\win_b64\SMAAbaqus" />
+		<IncludeFeature name="CODE\win_b64\SMAStandard" />
+		<IncludeFeature name="CODE\win_b64\SMASpckFbi" />
+		<IncludeFeature name="CODE\win_b64\SMAUma" />
+		<IncludeFeature name="CODE\win_b64\SMAPreMainSE" />
+		<IncludeFeature name="CODE\win_b64\SMACseMainSE" />
+		<IncludeFeature name="CODE\win_b64\SMAItrSub" />
+		<IncludeFeature name="CODE\win_b64\SMAItrUpg" />
+		<IncludeFeature name="CODE\win_b64\SMADmp" />
+		<IncludeFeature name="CODE\win_b64\VENMPI" />
+		<IncludeFeature name="CODE\win_b64\SMAExternal" />
+	</Feature>
+	<Feature featureId="157" fw="SMAFil" name="CODE\win_b64\SMAFil" version="423.5">
+		<Actions>
+			<FileAction diskSpace="431320" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="158" fw="SMASel" name="CODE\win_b64\SMASel" version="423.5">
+		<Actions>
+			<FileAction diskSpace="306592" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="159" fw="SMAAmmAnalysisMemManagers" name="CODE\win_b64\SMAAmmAnalysisMemManagers" version="423.5">
+		<Actions>
+			<FileAction diskSpace="151656" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="160" fw="SMAAncAnalysisCore" name="CODE\win_b64\SMAAncAnalysisCore" version="423.5">
+		<Actions>
+			<FileAction diskSpace="2160312" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="161" fw="SMACntContact" name="CODE\win_b64\SMACntContact" version="423.5">
+		<Actions>
+			<FileAction diskSpace="8925800" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="162" fw="SMACntGeom" name="CODE\win_b64\SMACntGeom" version="423.5">
+		<Actions>
+			<FileAction diskSpace="761960" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="163" fw="SMACsmCosimulation" name="CODE\win_b64\SMACsmCosimulation" version="423.5">
+		<Actions>
+			<FileAction diskSpace="265816" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="164" fw="SMADciDirectCosimInterface" name="CODE\win_b64\SMADciDirectCosimInterface" version="423.5">
+		<Actions>
+			<FileAction diskSpace="178280" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="165" fw="SMAEqsEquationSolvers" name="CODE\win_b64\SMAEqsEquationSolvers" version="423.5">
+		<Actions>
+			<FileAction diskSpace="30448872" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="166" fw="SMAGpuLibMagma" name="CODE\win_b64\SMAGpuLibMagma" version="423.5" />
+	<Feature featureId="167" fw="SMAGraph" name="CODE\win_b64\SMAGraph" version="423.5">
+		<Actions>
+			<FileAction diskSpace="228968" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="168" fw="SMAIomAnalysisIOManagers" name="CODE\win_b64\SMAIomAnalysisIOManagers" version="423.5">
+		<Actions>
+			<FileAction diskSpace="407144" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="169" fw="SMAMetis" name="CODE\win_b64\SMAMetis" version="423.5">
+		<Actions>
+			<FileAction diskSpace="288360" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="170" fw="SMAMtoMapperToolKitOdb" name="CODE\win_b64\SMAMtoMapperToolKitOdb" version="423.5">
+		<Actions>
+			<FileAction diskSpace="361168" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="171" fw="SMAPreprocessor" name="CODE\win_b64\SMAPreprocessor" version="423.5">
+		<Actions>
+			<FileAction diskSpace="41937088" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="172" fw="SMASharedAnalysis_DP" name="CODE\win_b64\SMASharedAnalysis_DP" version="423.5">
+		<Actions>
+			<FileAction diskSpace="18519232" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="173" fw="SMASharedAnalysis_SP" name="CODE\win_b64\SMASharedAnalysis_SP" version="423.5">
+		<Actions>
+			<FileAction diskSpace="18267320" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="174" fw="SMASharedAnalysis_XP" name="CODE\win_b64\SMASharedAnalysis_XP" version="423.5" />
+	<Feature featureId="175" fw="SMAStsStandardSupport" name="CODE\win_b64\SMAStsStandardSupport" version="423.5">
+		<Actions>
+			<FileAction diskSpace="10592752" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="176" fw="SMAUStd" name="CODE\win_b64\SMAUStd" version="423.5">
+		<Actions>
+			<FileAction diskSpace="868560" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="177" fw="SMAXsiExternalSolverInterface" name="CODE\win_b64\SMAXsiExternalSolverInterface" version="423.5">
+		<Actions>
+			<FileAction diskSpace="3228368" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="178" fw="SMACseCosimulationEngine" name="CODE\win_b64\SMACseCosimulationEngine" version="423.5">
+		<Actions>
+			<FileAction diskSpace="7070982" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="179" fw="SMACseDmpInterface" name="CODE\win_b64\SMACseDmpInterface" version="423.5" />
+	<Feature featureId="180" fw="SMACseDmpImplementation" name="CODE\win_b64\SMACseDmpImplementation" version="423.5">
+		<Actions>
+			<FileAction diskSpace="22120" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="181" fw="XMLParserMS" name="CODE\win_b64\XMLParserMS" version="423.5">
+		<Actions>
+			<FileAction diskSpace="371590" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="182" fw="XMLParser" name="CODE\win_b64\XMLParser" version="423.5">
+		<Actions>
+			<FileAction diskSpace="881294" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="183" fw="VENApacheXerces" name="CODE\win_b64\VENApacheXerces" version="423.5">
+		<Actions>
+			<FileAction diskSpace="2447712" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="184" fw="VENApacheXalan" name="CODE\win_b64\VENApacheXalan" version="423.5">
+		<Actions>
+			<FileAction diskSpace="2245072" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="185" fw="SMAMtrMaterialResponse" name="CODE\win_b64\SMAMtrMaterialResponse" version="423.5">
+		<Actions>
+			<FileAction diskSpace="10988552" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="186" fw="VENCuda" name="CODE\win_b64\VENCuda" version="423.5">
+		<Actions>
+			<FileAction diskSpace="836904448" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="187" fw="SMAStaMainSE" name="CODE\win_b64\SMAStaMainSE" version="423.5">
+		<Actions>
+			<FileAction diskSpace="4128360" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="188" fw="SMACalFeaCalculator" name="CODE\win_b64\SMACalFeaCalculator" version="423.5">
+		<Actions>
+			<FileAction diskSpace="104656" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="189" fw="SMAAbaqus" name="CODE\win_b64\SMAAbaqus" version="423.5">
+		<Actions>
+			<FileAction diskSpace="4320360" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="190" fw="SMAStandard" name="CODE\win_b64\SMAStandard" version="423.5">
+		<Actions>
+			<FileAction diskSpace="84580752" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="191" fw="SMASpckFbi" name="CODE\win_b64\SMASpckFbi" version="423.5">
+		<Actions>
+			<FileAction diskSpace="2698144" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="192" fw="SMAUma" name="CODE\win_b64\SMAUma" version="423.5">
+		<Actions>
+			<FileAction diskSpace="168040" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="193" fw="SMAPreMainSE" name="CODE\win_b64\SMAPreMainSE" version="423.5">
+		<Actions>
+			<FileAction diskSpace="4146792" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="194" fw="SMACseMainSE" name="CODE\win_b64\SMACseMainSE" version="423.5">
+		<Actions>
+			<FileAction diskSpace="4063848" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="195" fw="SMAItrSub" name="CODE\win_b64\SMAItrSub" version="423.5">
+		<Actions>
+			<FileAction diskSpace="209616" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="196" fw="SMAItrUpg" name="CODE\win_b64\SMAItrUpg" version="423.5">
+		<Actions>
+			<FileAction diskSpace="219193" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature description="Abaqus Explicit Solver Student Edition" featureId="197" fw="SIMAQXS_TP.prd" name="CODE\win_b64\SIMAQXS_TP.prd" version="423.5">
+		<Actions>
+			<FileAction diskSpace="6335" volume="1" />
+		</Actions>
+		<IncludeFeature name="CODE\win_b64\Administration" />
+		<IncludeFeature name="CODE\win_b64\SystemTS" />
+		<IncludeFeature name="CODE\win_b64\SpecialAPI" />
+		<IncludeFeature name="CODE\win_b64\System" />
+		<IncludeFeature name="CODE\win_b64\InsVCpreq" />
+		<IncludeFeature name="CODE\win_b64\LCCommon" />
+		<IncludeFeature name="CODE\win_b64\XMLParserItf" />
+		<IncludeFeature name="CODE\win_b64\Dialog" />
+		<IncludeFeature name="CODE\win_b64\PictoGraphicBase" />
+		<IncludeFeature name="CODE\win_b64\VENMOTIF" />
+		<IncludeFeature name="CODE\win_b64\IntrospectionInfrastructure" />
+		<IncludeFeature name="CODE\win_b64\CATStyleProcessor" />
+		<IncludeFeature name="CODE\win_b64\UIScriptBase" />
+		<IncludeFeature name="CODE\win_b64\UIVCoreTools" />
+		<IncludeFeature name="CODE\win_b64\Mathematics" />
+		<IncludeFeature name="CODE\win_b64\OpDataInterfaces" />
+		<IncludeFeature name="CODE\win_b64\ECMAScriptEngine" />
+		<IncludeFeature name="CODE\win_b64\VIAMPFoundation" />
+		<IncludeFeature name="CODE\win_b64\VENV8" />
+		<IncludeFeature name="CODE\win_b64\ExperienceKernel" />
+		<IncludeFeature name="CODE\win_b64\CSICommandBinder" />
+		<IncludeFeature name="CODE\win_b64\SystemAdvanced" />
+		<IncludeFeature name="CODE\win_b64\SystemExtensions" />
+		<IncludeFeature name="CODE\win_b64\Communications" />
+		<IncludeFeature name="CODE\win_b64\InfInterfaces" />
+		<IncludeFeature name="CODE\win_b64\InfOSIDLItf" />
+		<IncludeFeature name="CODE\win_b64\InfInterfacesTLB" />
+		<IncludeFeature name="CODE\win_b64\CATJavaBridge" />
+		<IncludeFeature name="CODE\win_b64\AutomationInterfaces" />
+		<IncludeFeature name="CODE\win_b64\InfOSIDLImpl" />
+		<IncludeFeature name="CODE\win_b64\VBA" />
+		<IncludeFeature name="CODE\win_b64\CATPLMServDisco" />
+		<IncludeFeature name="CODE\win_b64\CATPLMServDiscoImpl" />
+		<IncludeFeature name="CODE\win_b64\CATCustomActionMSI" />
+		<IncludeFeature name="CODE\win_b64\XMLParserMSChecker" />
+		<IncludeFeature name="CODE\win_b64\DSYAdmEnvMgtUI" />
+		<IncludeFeature name="CODE\win_b64\DSYAdmEnvMgt" />
+		<IncludeFeature name="CODE\win_b64\DSYInsInfra" />
+		<IncludeFeature name="CODE\win_b64\SMAXplMainSE_DP" />
+		<IncludeFeature name="CODE\win_b64\SMAXplMainSE_SP" />
+		<IncludeFeature name="CODE\win_b64\SMAXplMainSE_XP" />
+		<IncludeFeature name="CODE\win_b64\SMAAmmAnalysisMemManagers" />
+		<IncludeFeature name="CODE\win_b64\SMAAncAnalysisCore" />
+		<IncludeFeature name="CODE\win_b64\SMACntContact" />
+		<IncludeFeature name="CODE\win_b64\SMACntGeom" />
+		<IncludeFeature name="CODE\win_b64\SMACsmCosimulation" />
+		<IncludeFeature name="CODE\win_b64\SMADciDirectCosimInterface" />
+		<IncludeFeature name="CODE\win_b64\SMAEqsEquationSolvers" />
+		<IncludeFeature name="CODE\win_b64\SMAGpuLibMagma" />
+		<IncludeFeature name="CODE\win_b64\SMAGraph" />
+		<IncludeFeature name="CODE\win_b64\SMAIomAnalysisIOManagers" />
+		<IncludeFeature name="CODE\win_b64\SMAMetis" />
+		<IncludeFeature name="CODE\win_b64\SMAMtoMapperToolKitOdb" />
+		<IncludeFeature name="CODE\win_b64\SMAPreprocessor" />
+		<IncludeFeature name="CODE\win_b64\SMASharedAnalysis_DP" />
+		<IncludeFeature name="CODE\win_b64\SMASharedAnalysis_SP" />
+		<IncludeFeature name="CODE\win_b64\SMASharedAnalysis_XP" />
+		<IncludeFeature name="CODE\win_b64\SMAStsStandardSupport" />
+		<IncludeFeature name="CODE\win_b64\SMAUStd" />
+		<IncludeFeature name="CODE\win_b64\SMAXsiExternalSolverInterface" />
+		<IncludeFeature name="CODE\win_b64\ExperienceKernelAddins" />
+		<IncludeFeature name="CODE\win_b64\SMAAqenv" />
+		<IncludeFeature name="CODE\win_b64\SMAPyaModules" />
+		<IncludeFeature name="CODE\win_b64\SMAPylModules" />
+		<IncludeFeature name="CODE\win_b64\SMAPyrModules" />
+		<IncludeFeature name="CODE\win_b64\SMASyf" />
+		<IncludeFeature name="CODE\win_b64\SMAPl5" />
+		<IncludeFeature name="CODE\win_b64\SMABase" />
+		<IncludeFeature name="CODE\win_b64\SMABranch" />
+		<IncludeFeature name="CODE\win_b64\SMAUzlUtiZlib" />
+		<IncludeFeature name="CODE\win_b64\VENFORTRAN" />
+		<IncludeFeature name="CODE\win_b64\SMAAbuAbaqusUtilities" />
+		<IncludeFeature name="CODE\win_b64\SMAMsgCommServices" />
+		<IncludeFeature name="CODE\win_b64\SMAAspSchema" />
+		<IncludeFeature name="CODE\win_b64\SMACfgFeaConfiguration" />
+		<IncludeFeature name="CODE\win_b64\SMACSim" />
+		<IncludeFeature name="CODE\win_b64\SMACSrvSimServices" />
+		<IncludeFeature name="CODE\win_b64\SMADyn" />
+		<IncludeFeature name="CODE\win_b64\SMAISim" />
+		<IncludeFeature name="CODE\win_b64\SMAISrvSimServices" />
+		<IncludeFeature name="CODE\win_b64\SMAMtkMapperToolKit" />
+		<IncludeFeature name="CODE\win_b64\SMAMtx" />
+		<IncludeFeature name="CODE\win_b64\SMAPtkPathToolKit" />
+		<IncludeFeature name="CODE\win_b64\SMASim" />
+		<IncludeFeature name="CODE\win_b64\SMASimHLApi" />
+		<IncludeFeature name="CODE\win_b64\SMASimSchema" />
+		<IncludeFeature name="CODE\win_b64\SMABla" />
+		<IncludeFeature name="CODE\win_b64\SMAObjSimObjects" />
+		<IncludeFeature name="CODE\win_b64\SMASrvSimServices" />
+		<IncludeFeature name="CODE\win_b64\SMAFsm" />
+		<IncludeFeature name="CODE\win_b64\SMASglSimGenericLayer" />
+		<IncludeFeature name="CODE\win_b64\SMAFeoFeaSimServices" />
+		<IncludeFeature name="CODE\win_b64\SMAFeaBackbone" />
+		<IncludeFeature name="CODE\win_b64\SMAMsgFeaMessaging" />
+		<IncludeFeature name="CODE\win_b64\SMASimGenServices" />
+		<IncludeFeature name="CODE\win_b64\SMASfsShapeFuncSrv" />
+		<IncludeFeature name="CODE\win_b64\DSYSysBBDemon" />
+		<IncludeFeature name="CODE\win_b64\SMAPyc27" />
+		<IncludeFeature name="CODE\win_b64\SMACseCosimulationEngine" />
+		<IncludeFeature name="CODE\win_b64\SMACseDmpInterface" />
+		<IncludeFeature name="CODE\win_b64\SMACseDmpImplementation" />
+		<IncludeFeature name="CODE\win_b64\SMAAspAnalysisSupport" />
+		<IncludeFeature name="CODE\win_b64\SMAI2sInp2Sim" />
+		<IncludeFeature name="CODE\win_b64\SMAPst" />
+		<IncludeFeature name="CODE\win_b64\SMASub" />
+		<IncludeFeature name="CODE\win_b64\SMATlpSimTools" />
+		<IncludeFeature name="CODE\win_b64\SMATlsSimTools" />
+		<IncludeFeature name="CODE\win_b64\SMAUsubs" />
+		<IncludeFeature name="CODE\win_b64\SMAEliLicensing" />
+		<IncludeFeature name="CODE\win_b64\SMAEliBase" />
+		<IncludeFeature name="CODE\win_b64\SMAElkElementKernel" />
+		<IncludeFeature name="CODE\win_b64\SMAGpuLayer" />
+		<IncludeFeature name="CODE\win_b64\SMALcuLibCUDA" />
+		<IncludeFeature name="CODE\win_b64\SMALpeLibPETSC" />
+		<IncludeFeature name="CODE\win_b64\SMARom" />
+		<IncludeFeature name="CODE\win_b64\SMAShpShape" />
+		<IncludeFeature name="CODE\win_b64\XMLParserMS" />
+		<IncludeFeature name="CODE\win_b64\XMLParser" />
+		<IncludeFeature name="CODE\win_b64\VENApacheXerces" />
+		<IncludeFeature name="CODE\win_b64\VENApacheXalan" />
+		<IncludeFeature name="CODE\win_b64\SMAInpFlattener" />
+		<IncludeFeature name="CODE\win_b64\SMAIof" />
+		<IncludeFeature name="CODE\win_b64\SMACdb" />
+		<IncludeFeature name="CODE\win_b64\SMAOdb" />
+		<IncludeFeature name="CODE\win_b64\SMAOdb2Sim" />
+		<IncludeFeature name="CODE\win_b64\SMAMtrMaterialResponse" />
+		<IncludeFeature name="CODE\win_b64\VENMKL" />
+		<IncludeFeature name="CODE\win_b64\VENCuda" />
+		<IncludeFeature name="CODE\win_b64\SMADym" />
+		<IncludeFeature name="CODE\win_b64\SMAGcc_DP" />
+		<IncludeFeature name="CODE\win_b64\SMAGcc_SP" />
+		<IncludeFeature name="CODE\win_b64\SMAGcc_XP" />
+		<IncludeFeature name="CODE\win_b64\SMAXMaterial_DP" />
+		<IncludeFeature name="CODE\win_b64\SMAXMaterial_SP" />
+		<IncludeFeature name="CODE\win_b64\SMAXMaterial_XP" />
+		<IncludeFeature name="CODE\win_b64\SMAXpl_DP" />
+		<IncludeFeature name="CODE\win_b64\SMAXpl_SP" />
+		<IncludeFeature name="CODE\win_b64\SMAXpl_XP" />
+		<IncludeFeature name="CODE\win_b64\SMAXtr_DP" />
+		<IncludeFeature name="CODE\win_b64\SMAXtr_SP" />
+		<IncludeFeature name="CODE\win_b64\SMAXtr_XP" />
+		<IncludeFeature name="CODE\win_b64\SMAUXpl_DP" />
+		<IncludeFeature name="CODE\win_b64\SMAUXpl_SP" />
+		<IncludeFeature name="CODE\win_b64\SMAUXpl_XP" />
+		<IncludeFeature name="CODE\win_b64\SMAMbc_DP" />
+		<IncludeFeature name="CODE\win_b64\SMAMbc_SP" />
+		<IncludeFeature name="CODE\win_b64\SMAMbc_XP" />
+		<IncludeFeature name="CODE\win_b64\SMASpx_DP" />
+		<IncludeFeature name="CODE\win_b64\SMASpx_SP" />
+		<IncludeFeature name="CODE\win_b64\SMASpx_XP" />
+		<IncludeFeature name="CODE\win_b64\SMAPacMainSE_DP" />
+		<IncludeFeature name="CODE\win_b64\SMAPacMainSE_SP" />
+		<IncludeFeature name="CODE\win_b64\SMAPacMainSE_XP" />
+		<IncludeFeature name="CODE\win_b64\SMAPac_DP" />
+		<IncludeFeature name="CODE\win_b64\SMAPac_SP" />
+		<IncludeFeature name="CODE\win_b64\SMAPac_XP" />
+		<IncludeFeature name="CODE\win_b64\SMASps_DP" />
+		<IncludeFeature name="CODE\win_b64\SMASps_SP" />
+		<IncludeFeature name="CODE\win_b64\SMASps_XP" />
+		<IncludeFeature name="CODE\win_b64\SMAPreMainSE" />
+		<IncludeFeature name="CODE\win_b64\SMACseMainSE" />
+		<IncludeFeature name="CODE\win_b64\SMADmp" />
+		<IncludeFeature name="CODE\win_b64\VENMPI" />
+		<IncludeFeature name="CODE\win_b64\SMAExternal" />
+	</Feature>
+	<Feature featureId="198" fw="SMAXplMainSE_DP" name="CODE\win_b64\SMAXplMainSE_DP" version="423.5">
+		<Actions>
+			<FileAction diskSpace="4116584" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="199" fw="SMAXplMainSE_SP" name="CODE\win_b64\SMAXplMainSE_SP" version="423.5">
+		<Actions>
+			<FileAction diskSpace="4116584" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="200" fw="SMAXplMainSE_XP" name="CODE\win_b64\SMAXplMainSE_XP" version="423.5" />
+	<Feature featureId="201" fw="SMADym" name="CODE\win_b64\SMADym" version="423.5">
+		<Actions>
+			<FileAction diskSpace="106808" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="202" fw="SMAGcc_DP" name="CODE\win_b64\SMAGcc_DP" version="423.5">
+		<Actions>
+			<FileAction diskSpace="23144" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="203" fw="SMAGcc_SP" name="CODE\win_b64\SMAGcc_SP" version="423.5">
+		<Actions>
+			<FileAction diskSpace="23144" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="204" fw="SMAGcc_XP" name="CODE\win_b64\SMAGcc_XP" version="423.5" />
+	<Feature featureId="205" fw="SMAXMaterial_DP" name="CODE\win_b64\SMAXMaterial_DP" version="423.5">
+		<Actions>
+			<FileAction diskSpace="1704040" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="206" fw="SMAXMaterial_SP" name="CODE\win_b64\SMAXMaterial_SP" version="423.5">
+		<Actions>
+			<FileAction diskSpace="1672296" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="207" fw="SMAXMaterial_XP" name="CODE\win_b64\SMAXMaterial_XP" version="423.5" />
+	<Feature featureId="208" fw="SMAXpl_DP" name="CODE\win_b64\SMAXpl_DP" version="423.5">
+		<Actions>
+			<FileAction diskSpace="70876264" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="209" fw="SMAXpl_SP" name="CODE\win_b64\SMAXpl_SP" version="423.5">
+		<Actions>
+			<FileAction diskSpace="69295720" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="210" fw="SMAXpl_XP" name="CODE\win_b64\SMAXpl_XP" version="423.5" />
+	<Feature featureId="211" fw="SMAXtr_DP" name="CODE\win_b64\SMAXtr_DP" version="423.5">
+		<Actions>
+			<FileAction diskSpace="964712" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="212" fw="SMAXtr_SP" name="CODE\win_b64\SMAXtr_SP" version="423.5">
+		<Actions>
+			<FileAction diskSpace="967272" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="213" fw="SMAXtr_XP" name="CODE\win_b64\SMAXtr_XP" version="423.5" />
+	<Feature featureId="214" fw="SMAUXpl_DP" name="CODE\win_b64\SMAUXpl_DP" version="423.5">
+		<Actions>
+			<FileAction diskSpace="243920" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="215" fw="SMAUXpl_SP" name="CODE\win_b64\SMAUXpl_SP" version="423.5">
+		<Actions>
+			<FileAction diskSpace="265936" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="216" fw="SMAUXpl_XP" name="CODE\win_b64\SMAUXpl_XP" version="423.5" />
+	<Feature featureId="217" fw="SMAMbc_DP" name="CODE\win_b64\SMAMbc_DP" version="423.5">
+		<Actions>
+			<FileAction diskSpace="14694712" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="218" fw="SMAMbc_SP" name="CODE\win_b64\SMAMbc_SP" version="423.5">
+		<Actions>
+			<FileAction diskSpace="15367992" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="219" fw="SMAMbc_XP" name="CODE\win_b64\SMAMbc_XP" version="423.5" />
+	<Feature featureId="220" fw="SMASpx_DP" name="CODE\win_b64\SMASpx_DP" version="423.5">
+		<Actions>
+			<FileAction diskSpace="37889640" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="221" fw="SMASpx_SP" name="CODE\win_b64\SMASpx_SP" version="423.5">
+		<Actions>
+			<FileAction diskSpace="37024872" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="222" fw="SMASpx_XP" name="CODE\win_b64\SMASpx_XP" version="423.5" />
+	<Feature featureId="223" fw="SMAPacMainSE_DP" name="CODE\win_b64\SMAPacMainSE_DP" version="423.5">
+		<Actions>
+			<FileAction diskSpace="4108904" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="224" fw="SMAPacMainSE_SP" name="CODE\win_b64\SMAPacMainSE_SP" version="423.5">
+		<Actions>
+			<FileAction diskSpace="4108904" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="225" fw="SMAPacMainSE_XP" name="CODE\win_b64\SMAPacMainSE_XP" version="423.5" />
+	<Feature featureId="226" fw="SMAPac_DP" name="CODE\win_b64\SMAPac_DP" version="423.5">
+		<Actions>
+			<FileAction diskSpace="45589096" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="227" fw="SMAPac_SP" name="CODE\win_b64\SMAPac_SP" version="423.5">
+		<Actions>
+			<FileAction diskSpace="45082728" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="228" fw="SMAPac_XP" name="CODE\win_b64\SMAPac_XP" version="423.5" />
+	<Feature featureId="229" fw="SMASps_DP" name="CODE\win_b64\SMASps_DP" version="423.5">
+		<Actions>
+			<FileAction diskSpace="1430632" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="230" fw="SMASps_SP" name="CODE\win_b64\SMASps_SP" version="423.5">
+		<Actions>
+			<FileAction diskSpace="1420904" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="231" fw="SMASps_XP" name="CODE\win_b64\SMASps_XP" version="423.5" />
+	<Feature description="SIMULIA Abaqus Python DriverStudent Edition" featureId="232" fw="SIMADPS_TP.prd" name="CODE\win_b64\SIMADPS_TP.prd" version="423.5">
+		<Actions>
+			<FileAction diskSpace="4287" volume="1" />
+		</Actions>
+		<IncludeFeature name="CODE\win_b64\SMAAqenv" />
+		<IncludeFeature name="CODE\win_b64\SMAPyaModules" />
+		<IncludeFeature name="CODE\win_b64\SMAPylModules" />
+		<IncludeFeature name="CODE\win_b64\SMAPyrModules" />
+		<IncludeFeature name="CODE\win_b64\SMASyf" />
+		<IncludeFeature name="CODE\win_b64\SystemTS" />
+		<IncludeFeature name="CODE\win_b64\SpecialAPI" />
+		<IncludeFeature name="CODE\win_b64\System" />
+		<IncludeFeature name="CODE\win_b64\InsVCpreq" />
+		<IncludeFeature name="CODE\win_b64\LCCommon" />
+		<IncludeFeature name="CODE\win_b64\XMLParserItf" />
+		<IncludeFeature name="CODE\win_b64\SMAPl5" />
+		<IncludeFeature name="CODE\win_b64\SMABase" />
+		<IncludeFeature name="CODE\win_b64\SMABranch" />
+		<IncludeFeature name="CODE\win_b64\SMAUzlUtiZlib" />
+		<IncludeFeature name="CODE\win_b64\Administration" />
+		<IncludeFeature name="CODE\win_b64\Dialog" />
+		<IncludeFeature name="CODE\win_b64\PictoGraphicBase" />
+		<IncludeFeature name="CODE\win_b64\VENMOTIF" />
+		<IncludeFeature name="CODE\win_b64\IntrospectionInfrastructure" />
+		<IncludeFeature name="CODE\win_b64\CATStyleProcessor" />
+		<IncludeFeature name="CODE\win_b64\UIScriptBase" />
+		<IncludeFeature name="CODE\win_b64\UIVCoreTools" />
+		<IncludeFeature name="CODE\win_b64\Mathematics" />
+		<IncludeFeature name="CODE\win_b64\OpDataInterfaces" />
+		<IncludeFeature name="CODE\win_b64\ECMAScriptEngine" />
+		<IncludeFeature name="CODE\win_b64\VIAMPFoundation" />
+		<IncludeFeature name="CODE\win_b64\VENV8" />
+		<IncludeFeature name="CODE\win_b64\ExperienceKernel" />
+		<IncludeFeature name="CODE\win_b64\CSICommandBinder" />
+		<IncludeFeature name="CODE\win_b64\SystemAdvanced" />
+		<IncludeFeature name="CODE\win_b64\SystemExtensions" />
+		<IncludeFeature name="CODE\win_b64\Communications" />
+		<IncludeFeature name="CODE\win_b64\InfInterfaces" />
+		<IncludeFeature name="CODE\win_b64\InfOSIDLItf" />
+		<IncludeFeature name="CODE\win_b64\InfInterfacesTLB" />
+		<IncludeFeature name="CODE\win_b64\CATJavaBridge" />
+		<IncludeFeature name="CODE\win_b64\AutomationInterfaces" />
+		<IncludeFeature name="CODE\win_b64\InfOSIDLImpl" />
+		<IncludeFeature name="CODE\win_b64\VBA" />
+		<IncludeFeature name="CODE\win_b64\CATPLMServDisco" />
+		<IncludeFeature name="CODE\win_b64\CATPLMServDiscoImpl" />
+		<IncludeFeature name="CODE\win_b64\CATCustomActionMSI" />
+		<IncludeFeature name="CODE\win_b64\XMLParserMSChecker" />
+		<IncludeFeature name="CODE\win_b64\DSYAdmEnvMgtUI" />
+		<IncludeFeature name="CODE\win_b64\DSYAdmEnvMgt" />
+		<IncludeFeature name="CODE\win_b64\DSYInsInfra" />
+		<IncludeFeature name="CODE\win_b64\VENFORTRAN" />
+		<IncludeFeature name="CODE\win_b64\SMAAbuAbaqusUtilities" />
+		<IncludeFeature name="CODE\win_b64\SMAMsgCommServices" />
+		<IncludeFeature name="CODE\win_b64\SMAAspSchema" />
+		<IncludeFeature name="CODE\win_b64\SMACfgFeaConfiguration" />
+		<IncludeFeature name="CODE\win_b64\SMACSim" />
+		<IncludeFeature name="CODE\win_b64\SMACSrvSimServices" />
+		<IncludeFeature name="CODE\win_b64\SMADyn" />
+		<IncludeFeature name="CODE\win_b64\SMAISim" />
+		<IncludeFeature name="CODE\win_b64\SMAISrvSimServices" />
+		<IncludeFeature name="CODE\win_b64\SMAMtkMapperToolKit" />
+		<IncludeFeature name="CODE\win_b64\SMAMtx" />
+		<IncludeFeature name="CODE\win_b64\SMAPtkPathToolKit" />
+		<IncludeFeature name="CODE\win_b64\SMASim" />
+		<IncludeFeature name="CODE\win_b64\SMASimHLApi" />
+		<IncludeFeature name="CODE\win_b64\SMASimSchema" />
+		<IncludeFeature name="CODE\win_b64\SMABla" />
+		<IncludeFeature name="CODE\win_b64\SMAObjSimObjects" />
+		<IncludeFeature name="CODE\win_b64\SMASrvSimServices" />
+		<IncludeFeature name="CODE\win_b64\SMAFsm" />
+		<IncludeFeature name="CODE\win_b64\SMASglSimGenericLayer" />
+		<IncludeFeature name="CODE\win_b64\SMAFeoFeaSimServices" />
+		<IncludeFeature name="CODE\win_b64\SMAFeaBackbone" />
+		<IncludeFeature name="CODE\win_b64\SMAMsgFeaMessaging" />
+		<IncludeFeature name="CODE\win_b64\SMASimGenServices" />
+		<IncludeFeature name="CODE\win_b64\SMASfsShapeFuncSrv" />
+		<IncludeFeature name="CODE\win_b64\DSYSysBBDemon" />
+		<IncludeFeature name="CODE\win_b64\SMAPyc27" />
+		<IncludeFeature name="CODE\win_b64\SMALncMainSE" />
+		<IncludeFeature name="CODE\win_b64\SMALauncher" />
+		<IncludeFeature name="CODE\win_b64\SMAPybindings" />
+		<IncludeFeature name="CODE\win_b64\SMAPydModules" />
+		<IncludeFeature name="CODE\win_b64\SMAPyextStd" />
+		<IncludeFeature name="CODE\win_b64\SMAPyqModules" />
+		<IncludeFeature name="CODE\win_b64\SMAPython" />
+		<IncludeFeature name="CODE\win_b64\SMAInpFlattener" />
+		<IncludeFeature name="CODE\win_b64\SMAIof" />
+		<IncludeFeature name="CODE\win_b64\SMACdb" />
+		<IncludeFeature name="CODE\win_b64\SMAOdb" />
+		<IncludeFeature name="CODE\win_b64\SMAOdb2Sim" />
+		<IncludeFeature name="CODE\win_b64\SMAAspAnalysisSupport" />
+		<IncludeFeature name="CODE\win_b64\SMAI2sInp2Sim" />
+		<IncludeFeature name="CODE\win_b64\SMAPst" />
+		<IncludeFeature name="CODE\win_b64\SMASub" />
+		<IncludeFeature name="CODE\win_b64\SMATlpSimTools" />
+		<IncludeFeature name="CODE\win_b64\SMATlsSimTools" />
+		<IncludeFeature name="CODE\win_b64\SMAUsubs" />
+		<IncludeFeature name="CODE\win_b64\SMAEliLicensing" />
+		<IncludeFeature name="CODE\win_b64\ExperienceKernelAddins" />
+		<IncludeFeature name="CODE\win_b64\SMAEliBase" />
+		<IncludeFeature name="CODE\win_b64\SMAElkElementKernel" />
+		<IncludeFeature name="CODE\win_b64\SMAGpuLayer" />
+		<IncludeFeature name="CODE\win_b64\SMALcuLibCUDA" />
+		<IncludeFeature name="CODE\win_b64\SMALpeLibPETSC" />
+		<IncludeFeature name="CODE\win_b64\SMARom" />
+		<IncludeFeature name="CODE\win_b64\SMAShpShape" />
+	</Feature>
+	<Feature featureId="233" fw="InsDataFW_SEshared" name="CODE\win_b64\InsDataFW_SEshared" version="423.5">
+		<Actions>
+			<FileAction diskSpace="203541" volume="1" />
+		</Actions>
+	</Feature>
+	<Feature featureId="234" fw="InsVC10preq" name="CODE\win_b64\InsVC10preq" version="423.5">
+		<Actions>
+			<LaunchAppAction arguments="-install -dir &quot;^e(TARGET_PATH)\win_b64\code\bin&quot; -log &quot;^p(tmpInstall)\InstallVC10.log&quot;" duration="60" exe="^env(CATInstallPath)\code\bin\DSYAdmVC10preq.exe" forceOSBitMode="64" id="InstallVC10preq" msgCatalog="DSYInsControler" useInstallerEnvironment="true" wait="true" whenAdditional="normal" whenDelete="never" whenFirstInstall="normal" whenUpgrade="normal">
+				<ReturnCode eq="3010" msgKey="installVC10NeedsReboot" type="warning">
+					<Button action="notAnError" />
+				</ReturnCode>
+				<ReturnCode msgKey="installVC10Failed" neq="0" type="fail">
+					<Param value="SPE_RC" />
+					<Param value="^p(tmpInstall)\InstallVC10.log" />
+					<Param value="SPE_ERR_PATH" />
+					<Button action="ok" />
+				</ReturnCode>
+			</LaunchAppAction>
+			<FileAction diskSpace="9655792" volume="1" />
+		</Actions>
+	</Feature>
+</Features>
